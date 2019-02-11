@@ -141,9 +141,14 @@ class JnesaisQ:
                         JnesaisQ_mismatches=JnesaisQ_mismatches,
                         debug_mode=debug_mode
                         )
-                #if isinstance(JSON_query_key_value, list) and not isinstance(JSON_query_clause[format_key], list):
-                #    print('list mismatch')
-                #    exit(0)
+                elif isinstance(JSON_to_query_key_value, list) and not isinstance(JSON_query_key_value, list):
+                    print('list mismatch')
+                    JnesaisQ_mismatches.append(
+                            self._json_query_finding(
+                                current_json_path,
+                                self._JSON_VALUE_MISMATCH
+                            )
+                        )
                 else:
                     if re.match(JSON_query_key_value, JSON_to_query_key_value):
                         JnesaisQ_matches.append(
