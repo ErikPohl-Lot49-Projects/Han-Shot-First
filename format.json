@@ -1,7 +1,9 @@
 {
+  "identifier": "wrong",
   "subviews": [
     {
-      "class": "*."
+      "class": ".*",
+      "classNames": "container"
     }
   ]
 }
