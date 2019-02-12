@@ -5,7 +5,6 @@ import re
 import sys
 from collections import namedtuple
 from contextlib import contextmanager
-from _collections_abc import Iterable
 
 __author__ = "Erik Pohl"
 __copyright__ = "None"
@@ -142,7 +141,6 @@ class JnesaisQ:
                         debug_mode=debug_mode
                         )
                 elif isinstance(JSON_to_query_key_value, list) and not isinstance(JSON_query_key_value, list):
-                    print('list mismatch')
                     JnesaisQ_mismatches.append(
                             self._json_query_finding(
                                 current_json_path,
