@@ -1,0 +1,11 @@
+{
+  "identifier": "wrong",
+  "subviews": [
+    {
+      "class": ".*",
+      "classNames": [
+        "container"
+      ]
+    }
+  ]
+}
