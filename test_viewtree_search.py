@@ -1,5 +1,5 @@
 from unittest import TestCase
-from viewtree_search import viewtree_search
+from JnesaisQ.viewtree_search import viewtree_search
 from json import load
 
 
