@@ -1,5 +1,5 @@
 from json import load
-from JnesaisQ.garindan import viewtree_search
+from JnesaisQ.viewtree_search import viewtree_search
 
 with open('C:\\Users\\p636205\\workspace\\jnesaisq\\JnesaisQ\\the_modal_nodes.json','r') as f1:
     z = load(f1)
