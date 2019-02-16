@@ -2,66 +2,74 @@ from json import load
 import logging
 import sys
 
+
 def viewtree_search(json_view_tree, search_commands):
     recursable_tags = ('subviews', 'contentView', 'input', 'control')
+    search_commands2 = search_commands[:]
     #logging.basicConfig(stream=sys.stderr, level=logging.INFO)
-    count = 0 
-    logging.info('called;', type(json_view_tree),json_view_tree)
+    count = 0
+    logging.info('called;'+str(type(json_view_tree)) + str(json_view_tree))
     if isinstance(json_view_tree, str):
         logging.info('string leaf')
         return count
     if isinstance(json_view_tree, list):
         logging.info('scanning list')
-        for c,i in enumerate(json_view_tree):
-            logging.info('recursing list item [ ' + str(c))
-            count += viewtree_search(i, search_commands)
+        for index, json_list_element in enumerate(json_view_tree):
+            logging.info('recursing list item [ ' + str(index))
+            count += viewtree_search(json_list_element, search_commands2)
         return count
-    if isinstance(json_view_tree,dict): 
+    if isinstance(json_view_tree, dict):
         logging.info('indict')
-        for i in json_view_tree.keys():
-            if isinstance(json_view_tree[i],dict) or (i != 'classNames' and isinstance(json_view_tree[i],list)):
-                if i in recursable_tags:
-                    logging.info(type(json_view_tree[i]), json_view_tree[i])
+        for json_list_element in json_view_tree.keys():
+            if isinstance(json_view_tree[json_list_element], dict) or (json_list_element != 'classNames' and isinstance(json_view_tree[json_list_element], list)):
+                if json_list_element in recursable_tags:
+                    logging.info(str(type(json_view_tree[json_list_element]))+ str(json_view_tree[json_list_element]))
                     logging.info('calling')
-                    count += viewtree_search(json_view_tree[i], search_commands)
+                    count += viewtree_search(json_view_tree[json_list_element], search_commands2)
             else:
-                for command in search_commands:
+                for command_index, command in enumerate(search_commands2):
                     if command.startswith('#'):
-                        logging.info('trying identifier [' + i + ']')
-                        if (i=='identifier') and (json_view_tree[i] == command[1:]):
-                            #print(25*'#'+i + ' : ' + json_view_tree[i], json_view_tree)
-                            print(json_view_tree)
-                            count +=1
+                        logging.info('trying identifier [' + json_list_element + ']')
+                        if (json_list_element == 'identifier') and (json_view_tree[json_list_element] == command[1:]):
+                            search_commands2.pop(command_index)
+                            if len(search_commands2) == 0:
+                                print(json_view_tree)
+                                return 1
                     elif command.startswith('.'):
-                        if (i == 'classNames') and (command[1:] in json_view_tree[i]):
-                            logging.info(json_view_tree[i])
-                            #print(25*'>'+i + ' : ' + ''.join(json_view_tree[i]), json_view_tree)
+                        if (json_list_element == 'classNames') and (command[1:] in json_view_tree[json_list_element]):
+                            search_commands2.pop(command_index)
+                            if len(search_commands2) == 0:
+                                print(json_view_tree)
+                                return 1
+                    elif (json_list_element == 'class') and (json_view_tree[json_list_element] == command[0:]):
+                        # print(25*'*'+i + ' : ' + json_view_tree[i], json_view_tree)
+                        search_commands2.pop(command_index)
+                        if len(search_commands2) == 0:
+                            print(search_commands2)
                             print(json_view_tree)
-                            count +=1
-                    elif  (i == 'class') and (json_view_tree[i] == command[0:]):
-                        #print(25*'*'+i + ' : ' + json_view_tree[i], json_view_tree)
-                        print(json_view_tree)
-                        count +=1
-                        
+                            return 1
+
     return count
 
-with open('C:\\Users\\p636205\\workspace\\jnesaisq\\JnesaisQ\\the_modal_nodes.json','r') as f1:
+
+with open('C:\\Users\Richard Pendrake\\Downloads\\the_modal_nodes.json', 'r') as f1:
     z = load(f1)
 
-with open('C:\\Users\\p636205\\workspace\\jnesaisq\\JnesaisQ\\format.json','r') as f1:
-    json_query_format = load(f1)
-mysearch = ['Input']
-output = viewtree_search(z,mysearch )
-print(output)
-mysearch = ['#videoMode']
-output = viewtree_search(z,mysearch )
-print(output)
-mysearch = ['#rate']
-output = viewtree_search(z,mysearch )
-print(output)
-mysearch = ['#supersample']
-output = viewtree_search(z,mysearch )
-print(output)
-mysearch = ['.container']
-output = viewtree_search(z,mysearch )
+#mysearch = ['Input']
+#output = viewtree_search(z, mysearch)
+#print(output)
+#mysearch = ['#videoMode']
+#output = viewtree_search(z, mysearch)
+#print(output)
+#mysearch = ['#rate']
+#output = viewtree_search(z, mysearch)
+#print(output)
+#mysearch = ['#supersample']
+#output = viewtree_search(z, mysearch)
+#print(output)
+#mysearch = ['.container']
+#output = viewtree_search(z, mysearch)
+#print(output)
+mysearch = ['CvarSelect', '#rate']
+output = viewtree_search(z, mysearch)
 print(output)
