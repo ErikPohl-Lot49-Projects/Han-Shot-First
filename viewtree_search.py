@@ -7,6 +7,7 @@ def viewtree_search(json_view_tree, search_commands):
     recursable_tags = ('subviews', 'contentView', 'input', 'control')
     search_commands2 = search_commands[:]
     #logging.basicConfig(stream=sys.stderr, level=logging.INFO)
+    logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
     count = 0
     logging.info('called;'+str(type(json_view_tree)) + str(json_view_tree))
     if isinstance(json_view_tree, str):
@@ -45,31 +46,8 @@ def viewtree_search(json_view_tree, search_commands):
                         # print(25*'*'+i + ' : ' + json_view_tree[i], json_view_tree)
                         search_commands2.pop(command_index)
                         if len(search_commands2) == 0:
-                            print(search_commands2)
+                            #print(search_commands2)
                             print(json_view_tree)
                             return 1
 
     return count
-
-
-with open('C:\\Users\Richard Pendrake\\Downloads\\the_modal_nodes.json', 'r') as f1:
-    z = load(f1)
-
-#mysearch = ['Input']
-#output = viewtree_search(z, mysearch)
-#print(output)
-#mysearch = ['#videoMode']
-#output = viewtree_search(z, mysearch)
-#print(output)
-#mysearch = ['#rate']
-#output = viewtree_search(z, mysearch)
-#print(output)
-#mysearch = ['#supersample']
-#output = viewtree_search(z, mysearch)
-#print(output)
-#mysearch = ['.container']
-#output = viewtree_search(z, mysearch)
-#print(output)
-mysearch = ['CvarSelect', '#rate']
-output = viewtree_search(z, mysearch)
-print(output)
