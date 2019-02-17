@@ -36,27 +36,40 @@ class viewtree_search_cli:
         return command_list
 
 
-    def viewtree_search(self,json_view_tree, search_commands, search_hits, halt_on_match=False, debug_mode = False):
+    def viewtree_search(
+            self,
+            json_view_tree,
+            search_commands,
+            search_hits,
+            halt_on_match=False,
+            debug_mode = False,
+            max_descendent_level = None,
+            sibling_descendent_level = None,
+            max_finds = None,
+            level = 0
+    ):
+        print('Level', level)
         local_search_commands = search_commands[:]
         local_search_hits = search_hits[:]
+        results = []
         logging.disable(logging.NOTSET) if debug_mode else logging.disable(logging.INFO)
-        match_count = 0
         logging.info('called;' + str(type(json_view_tree)) + str(json_view_tree))
         if isinstance(json_view_tree, str):
             logging.info('string leaf.  ending the search.')
-            return match_count
+            return results
         if isinstance(json_view_tree, list):
             logging.info('found a list.  searching it.')
             for index, json_list_element in enumerate(json_view_tree):
                 logging.info('recursing list item [ ' + str(index))
-                match_count += self.viewtree_search(
+                results.extend( self.viewtree_search(
                     json_list_element,
                     local_search_commands,
                     local_search_hits,
                     halt_on_match=halt_on_match,
-                    debug_mode=debug_mode
-                )
-            return match_count
+                    debug_mode=debug_mode,
+                    level=level+1
+                ))
+            return results
         if isinstance(json_view_tree, dict):
             logging.info('found a dictionary.  searching it.')
             for json_list_element in json_view_tree.keys():
@@ -66,13 +79,14 @@ class viewtree_search_cli:
                         logging.info(
                             str(type(json_view_tree[json_list_element])) + str(json_view_tree[json_list_element]))
                         logging.info('calling')
-                        match_count += self.viewtree_search(
+                        results.extend(self.viewtree_search(
                             json_view_tree[json_list_element],
                             local_search_commands,
                             local_search_hits,
                             halt_on_match=halt_on_match,
-                            debug_mode = debug_mode
-                        )
+                            debug_mode = debug_mode,
+                            level=level+1
+                        ))
                 else:
                     for command_index, command in enumerate(local_search_commands):
                         if (
@@ -91,11 +105,16 @@ class viewtree_search_cli:
                         ):
                                 local_search_hits[command_index] += 1
                                 if self.check_hits(local_search_hits):
-                                    print(str(json_view_tree))
-                                    match_count += 1
+                                    result = str(json_view_tree)
+                                    results.append(result)
                                     if halt_on_match:
-                                        return 1
-        return match_count
+                                        return results
+        return results
+
+    def output_results(self, results):
+        for result in results:
+            print(result)
+        print("Found 1 entry") if len(results) == 1 else print("Found {} entries".format(len(results)))
 
     def viewtree_search_with_combinators(self, command_string):
         command_list = self.split_string_command(command_string)
@@ -105,7 +124,7 @@ class viewtree_search_cli:
                 current_search_command.append(search_command)
         command_hits = [0] * len(command_list)
         search_results = self.viewtree_search(self.json_source, current_search_command, command_hits, debug_mode=self.debug_mode)
-        print("Found 1 entry") if search_results == 1 else print("Found {} entries".format(search_results))
+        self.output_results(search_results)
         return True
 
     def json_source_status(self):
