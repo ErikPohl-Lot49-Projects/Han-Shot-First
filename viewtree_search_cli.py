@@ -3,6 +3,7 @@ import urllib
 import urllib.request
 import logging
 import sys
+import string
 
 class viewtree_search_cli:
 
@@ -70,34 +71,26 @@ class viewtree_search_cli:
                         )
                 else:
                     for command_index, command in enumerate(local_search_commands):
-                        if command.startswith('#'):
-                            logging.info('trying identifier [' + json_list_element + ']')
-                            if (json_list_element == 'identifier') and (
-                                    json_view_tree[json_list_element] == command[1:]):
+                        if (
+                                (command.startswith('#')
+                                and (json_list_element == 'identifier')
+                                and (json_view_tree[json_list_element] == command[1:])
+                                ) or
+                                (command.startswith('.')
+                                 and (json_list_element == 'classNames')
+                                 and (command[1:] in json_view_tree[json_list_element])
+                                ) or
+                                (not command.startswith('#') and not command.startswith('.')
+                                 and (json_list_element == 'class')
+                                 and (json_view_tree[json_list_element] == command[0:])
+                                )
+                        ):
                                 local_search_hits[command_index] += 1
                                 if len(check_hits(local_search_hits)) == len(local_search_hits):
                                     print(str(json_view_tree))
                                     match_count += 1
                                     if halt_on_match:
                                         return 1
-                        elif command.startswith('.'):
-                            className = command[1:]
-                            if (json_list_element == 'classNames') and (
-                                    className in json_view_tree[json_list_element]):
-                                local_search_hits[command_index] += 1
-                                logging.info('found in ' + str(json_view_tree[json_list_element]))
-                                if len(check_hits(local_search_hits)) == len(local_search_hits):
-                                    print(json_view_tree)
-                                    match_count += 1
-                                    if halt_on_match:
-                                        return 1
-                        elif (json_list_element == 'class') and (json_view_tree[json_list_element] == command[0:]):
-                            local_search_hits[command_index] += 1
-                            if len(check_hits(local_search_hits)) == len(local_search_hits):
-                                print(json_view_tree)
-                                match_count += 1
-                                if halt_on_match:
-                                    return 1
         return match_count
 
     def viewtree_search_with_combinators(self, search_commands):
