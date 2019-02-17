@@ -7,14 +7,19 @@ import string
 
 class viewtree_search_cli:
 
+    def output_welcome_message(self):
+        print("ViewTree Search")
+        print("Type 'help' for instructions for use.")
+
     def __init__(self):
         self.delims = ('#', '.', '!', '@')
         self.combinators = (' ', '>')
         self.json_source = None
         self.debug_mode = False
-        print("ViewTree Search")
-        print("Type 'help' for instructions for use.")
+        self.check_hits = lambda hits: len([hit_or_miss for hit_or_miss in hits if hit_or_miss > 0]) == len(hits)
+        self.recursable_tags = ('subviews', 'contentView', 'input', 'control')
         logging.basicConfig(stream=sys.stderr, level=logging.INFO)
+        self.output_welcome_message()
 
     def split_string_command(self,string_command):
         command_list = []
@@ -30,9 +35,8 @@ class viewtree_search_cli:
             command_list.append(current_command)
         return command_list
 
+
     def viewtree_search(self,json_view_tree, search_commands, search_hits, halt_on_match=False, debug_mode = False):
-        check_hits = lambda hits: [hit_or_miss for hit_or_miss in hits if hit_or_miss > 0]
-        recursable_tags = ('subviews', 'contentView', 'input', 'control')
         local_search_commands = search_commands[:]
         local_search_hits = search_hits[:]
         logging.disable(logging.NOTSET) if debug_mode else logging.disable(logging.INFO)
@@ -58,7 +62,7 @@ class viewtree_search_cli:
             for json_list_element in json_view_tree.keys():
                 if isinstance(json_view_tree[json_list_element], dict) or (
                         json_list_element != 'classNames' and isinstance(json_view_tree[json_list_element], list)):
-                    if json_list_element in recursable_tags:
+                    if json_list_element in self.recursable_tags:
                         logging.info(
                             str(type(json_view_tree[json_list_element])) + str(json_view_tree[json_list_element]))
                         logging.info('calling')
@@ -86,7 +90,7 @@ class viewtree_search_cli:
                                 )
                         ):
                                 local_search_hits[command_index] += 1
-                                if len(check_hits(local_search_hits)) == len(local_search_hits):
+                                if self.check_hits(local_search_hits):
                                     print(str(json_view_tree))
                                     match_count += 1
                                     if halt_on_match:
