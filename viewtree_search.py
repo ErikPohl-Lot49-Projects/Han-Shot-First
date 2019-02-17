@@ -55,5 +55,5 @@ def viewtree_search(json_view_tree, search_commands, search_hits, halt_on_match=
                             count += 1
                             if halt_on_match:
                                 return 1
-
+  
     return count
