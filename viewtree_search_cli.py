@@ -103,60 +103,79 @@ class viewtree_search_cli:
     def viewtree_search_with_combinators(self, search_commands):
         return True
 
-    def prompt(self):
-        def json_source_status():
-            print("JSON source data is still loaded from before") if self.json_source else print(
-                "No JSON source data exists for viewtree searching.")
+    def json_source_status(self):
+        print("JSON source data is still loaded from before") if self.json_source else print(
+            "No JSON source data exists for viewtree searching.")
 
+    def toggle_debug_mode(self):
+        self.debug_mode = not self.debug_mode
+        print("Debug mode enabled.") if self.debug_mode else print("Debug mode disabled.")
+
+    def load_json_from_file(self,command_string):
+        json_file_name = command_string[1:]
+        windowsed_file_name = json_file_name.replace('\\', '\\\\')
+        try:
+            with open(windowsed_file_name, 'r') as json_file_handle:
+                self.json_source = load(json_file_handle)
+            print('Loaded source from ', json_file_name)
+            if self.debug_mode:
+                print('Source: ', self.json_source)
+        except:
+            print("Error loading file ", json_file_name)
+            print("Please review the file path and name and try again.")
+            self.json_source_status()
+
+    def print_help(self):
+        print('ViewTree Search Help')
+        print(
+            "ViewTree Search is a CLI which allows you to load JSON from a file or from a URL and search it for various selectors.")
+        print("? toggles debug mode")
+        print("help outputs the help instructions [these]")
+        print("exit exits the CLI")
+        print("source outputs the current json source available for viewtree searching")
+        print("![file name] allows you to load a file of JSON named file name-- don't use the brackets.  ")
+        print("@[URL] allows you to load a URL of JSON using the specified URL-- don't use the brackets.  ")
+        print("Simple selector")
+        print("Compound selector")
+
+    def load_json_from_url(self,command_string):
+        try:
+            command_url = command_string[1:]
+            url_request = urllib.request.urlopen(command_url)
+            data = url_request.read()
+            encoding = url_request.info().get_content_charset('utf-8')
+            self.json_source = loads(data.decode(encoding))
+            print('Loaded source from ', command_url)
+            if self.debug_mode:
+                print('Source: ', self.json_source)
+        except:
+            print("Error loading URL ", command_url)
+            print("Please review the URL/internet connection and try again.")
+            self.json_source_status()
+
+    def attempt_exit(self):
+        command_string = input("Are you sure?")
+        if command_string.lower().startswith('y'):
+            exit()
+        else:
+            print("Exit attempt cancelled.  Resuming CLI")
+            self.json_source_status()
+
+    def prompt(self):
         while True:
             command_string = input(">>")
             if command_string.startswith('!'):
-                json_file_name = command_string[1:]
-                windowsed_file_name = json_file_name.replace('\\', '\\\\')
-                try:
-                    with open(windowsed_file_name, 'r') as json_file_handle:
-                        self.json_source = load(json_file_handle)
-                    print('Loaded source from ', json_file_name)
-                    if self.debug_mode:
-                        print('Source: ',self.json_source)
-                except:
-                    print("Error loading file ", json_file_name)
-                    print("Please review the file path and name and try again.")
-                    json_source_status()
+                self.load_json_from_file(command_string)
             elif command_string == '?':
-                self.debug_mode = not self.debug_mode
-                print("Debug mode enabled.") if self.debug_mode else print("Debug mode disabled.")
+                self.toggle_debug_mode()
             elif command_string.startswith('@'):
-                try:
-                    command_url = command_string[1:]
-                    url_request = urllib.request.urlopen(command_url)
-                    data = url_request.read()
-                    encoding = url_request.info().get_content_charset('utf-8')
-                    self.json_source = loads(data.decode(encoding))
-                    print('Loaded source from ', command_url)
-                    if self.debug_mode:
-                        print('Source: ',self.json_source)
-                except:
-                    print("Error loading URL ", command_url)
-                    print("Please review the URL/internet connection and try again.")
-                    json_source_status()
+                self.load_json_from_url(command_string)
             elif command_string.lower() == 'help':
-                print('ViewTree Search Help')
-                print("ViewTree Search is a CLI which allows you to load JSON from a file or from a URL and search it for various selectors.")
-                print("? toggles debug mode")
-                print("help outputs the help instructions [these]")
-                print("exit exits the CLI")
-                print("![file name] allows you to load a file of JSON named file name-- don't use the brackets.  ")
-                print("@[URL] allows you to load a URL of JSON using the specified URL-- don't use the brackets.  ")
-                print("Simple selector")
-                print("Compound selector")
+                self.print_help()
             elif command_string.lower() == 'exit':
-                command_string = input("Are you sure?")
-                if command_string.lower().startswith('y'):
-                    exit()
-                else:
-                    print("Exit attempt cancelled.  Resuming CLI")
-                    json_source_status()
+                self.attempt_exit()
+            elif command_string.lower() == 'source':
+                print(self.json_source) if self.json_source else print("No JSON source has been loaded for viewtree searching")
             else: # this code is used to perform a viewtree search since all other command options are not in play
                 if not self.json_source:
                     print("No JSON source is loaded.  Please load one from file or URL.")
@@ -166,6 +185,3 @@ class viewtree_search_cli:
                     command_hits = [0]*len(command_list)
                     search_results = self.viewtree_search(self.json_source, command_list, command_hits, debug_mode = self.debug_mode)
                     print("Found 1 entry") if search_results == 1 else print("Found {} entries".format(search_results))
-
-
-
