@@ -70,5 +70,5 @@ class TestCases(TestCase):
                 with open(test_case['case_file'], 'r') as f1:
                     vts_cli.json_source = load(f1)
                 test_hits = [0]*len(test_case['case_search_commands'])
-                self.assertEqual(vts_cli.viewtree_search(vts_cli.json_source,test_case['case_search_commands'], test_hits, halt_on_match=False ), test_case['case_count'])
+                self.assertEqual(len(vts_cli.viewtree_search(vts_cli.json_source,test_case['case_search_commands'], test_hits, halt_on_match=False )), test_case['case_count'])
 
