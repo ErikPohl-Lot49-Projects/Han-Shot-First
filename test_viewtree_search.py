@@ -1,5 +1,6 @@
 from unittest import TestCase
 from viewtree_search import viewtree_search
+from viewtree_search_cli import viewtree_search_cli
 from json import load
 from contextlib import redirect_stdout
 import io
@@ -39,23 +40,35 @@ class TestCases(TestCase):
              'case_search_commands': ['StackView'],
              'case_count': 6
              },
-
             {'case_name': 'embedded in wrong parent type -- label',
              'case_file': 'C:\\Users\\Richard Pendrake\\Downloads\\mos_eisley.json',
              'case_search_commands': ['CvarCheckbox'],
              'case_count': 0
              },
+
              {'case_name': 'a complete compound match contains another complete match-- the second is disregarded',
               'case_file': 'C:\\Users\\Richard Pendrake\\Downloads\\mos_eisley.json',
               'case_search_commands': ['#System', '.container'],
               'case_count': 2
-              }
+              },
+            {'case_name': 'before combinator, compound',
+             'case_file': 'C:\\Users\\Richard Pendrake\\Downloads\\mos_eisley.json',
+             'case_search_commands': ['StackView', '.container'],
+             'case_count': 2
+             }
+            #,
+            #{'case_name': 'with combinator, complex/chain with descendent',
+            # 'case_file': 'C:\\Users\\Richard Pendrake\\Downloads\\mos_eisley.json',
+            # 'case_search_commands': ['StackView', ' ', '.container'],
+            # 'case_count': 2
+            # }
         ]
         f = io.StringIO()
         with redirect_stdout(f):
+            vts_cli = viewtree_search_cli()
             for test_case in test_cases:
                 with open(test_case['case_file'], 'r') as f1:
-                    z = load(f1)
+                    vts_cli.json_source = load(f1)
                 test_hits = [0]*len(test_case['case_search_commands'])
-                self.assertEqual(viewtree_search(z,test_case['case_search_commands'], test_hits, halt_on_match=False ), test_case['case_count'])
+                self.assertEqual(vts_cli.viewtree_search(vts_cli.json_source,test_case['case_search_commands'], test_hits, halt_on_match=False ), test_case['case_count'])
 
