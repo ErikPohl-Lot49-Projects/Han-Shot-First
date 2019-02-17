@@ -97,7 +97,15 @@ class viewtree_search_cli:
                                         return 1
         return match_count
 
-    def viewtree_search_with_combinators(self, search_commands):
+    def viewtree_search_with_combinators(self, command_string):
+        command_list = self.split_string_command(command_string)
+        current_search_command = []
+        for search_command in command_list:
+            if search_command not in self.combinators:
+                current_search_command.append(search_command)
+        command_hits = [0] * len(command_list)
+        search_results = self.viewtree_search(self.json_source, current_search_command, command_hits, debug_mode=self.debug_mode)
+        print("Found 1 entry") if search_results == 1 else print("Found {} entries".format(search_results))
         return True
 
     def json_source_status(self):
@@ -178,7 +186,4 @@ class viewtree_search_cli:
                     print("No JSON source is loaded.  Please load one from file or URL.")
                     print("Remember: typing 'help' will get you instructions to use this CLI.")
                 else:
-                    command_list = self.split_string_command(command_string)
-                    command_hits = [0]*len(command_list)
-                    search_results = self.viewtree_search(self.json_source, command_list, command_hits, debug_mode = self.debug_mode)
-                    print("Found 1 entry") if search_results == 1 else print("Found {} entries".format(search_results))
+                    self.viewtree_search_with_combinators(command_string)
