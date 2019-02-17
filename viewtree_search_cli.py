@@ -1,7 +1,7 @@
 from json import load, loads
 import urllib
 import urllib.request
-import logging 
+import logging
 import sys
 
 #command_string = input(">>")
@@ -95,20 +95,31 @@ class viewtree_search_cli:
             if command_string.startswith('!'):
                 fname = command_string[1:]
                 use_fname = fname.replace('\\', '\\\\')
-                with open(use_fname, 'r') as f1:
-                    self.json_source = load(f1)
-                print(self.json_source)
-                print('loaded source from ', fname, use_fname)
+                try:
+                    with open(use_fname, 'r') as f1:
+                        self.json_source = load(f1)
+                    print(self.json_source)
+                    print('loaded source from ', fname)
+                except:
+                    print("Error loading file ", fname)
+                    print("Please review the file path and name and try again.")
+                    print("JSON source data is still loaded from before") if self.json_source else print("No JSON source data exists for viewtree searching.")
             elif command_string == '?':
                 self.debug_mode = not self.debug_mode
                 print("Debug mode enabled.") if self.debug_mode else print("Debug mode disabled.")
             elif command_string.startswith('@'):
-                s = urllib.request.urlopen(command_string[1:])
-                data = s.read()
-                encoding = s.info().get_content_charset('utf-8')
-                self.json_source = loads(data.decode(encoding))
-                print('loaded source from ', command_string[1:])
-                print(self.json_source)
+                try:
+                    s = urllib.request.urlopen(command_string[1:])
+                    data = s.read()
+                    encoding = s.info().get_content_charset('utf-8')
+                    self.json_source = loads(data.decode(encoding))
+                    print('loaded source from ', command_string[1:])
+                    print(self.json_source)
+                except:
+                    print("Error loading URL ", command_string[1:])
+                    print("Please review the URL/internet connection and try again.")
+                    print("JSON source data is still loaded from before") if self.json_source else print(
+                        "No JSON source data exists for viewtree searching.")
             elif command_string.lower() == 'help':
                 print('ViewTree Search Help')
                 print("ViewTree Search is a CLI which allows you to load JSON from a file or from a URL and search it for various selectors.")
@@ -129,15 +140,9 @@ class viewtree_search_cli:
                     print("Remember: typing 'help' will get you instructions to use this CLI.")
                 else:
                     command_list = self.split_string_command(command_string)
-                    #print(command_list)
                     command_hits = [0]*len(command_list)
-                    #print('evaluating ',self.z)
-                    #print('using ', command_list)
-                    #print('and ', command_hits)
                     zx = self.viewtree_search(self.json_source, command_list, command_hits, debug_mode = self.debug_mode)
-                    print("Found {} entries".format(zx))
+                    print("Found 1 entry") if zx == 1 else print("Found {} entries".format(zx))
 
 
 
-z = viewtree_search_cli()
-z.prompt()
