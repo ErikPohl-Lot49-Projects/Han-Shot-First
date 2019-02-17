@@ -32,9 +32,12 @@ class viewtree_search_cli:
         while True:
             command_string = input(">>")
             if command_string.startswith('!'):
-                with open(command_string[1:], 'r') as f1:
+                fname = command_string[1:]
+                use_fname = fname.replace('\\', '\\\\')
+                with open(use_fname, 'r') as f1:
                     self.json_source = load(f1)
-                print('loaded source from ', command_string[1:])
+                print(self.json_source)
+                print('loaded source from ', fname, use_fname)
             elif command_string.startswith('@'):
                 s = urllib.request.urlopen(command_string[1:])
                 data = s.read()
