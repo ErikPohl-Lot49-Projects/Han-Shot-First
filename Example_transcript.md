@@ -1,5 +1,5 @@
 ```
-C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\python.exe" "C:/Users/Richard Pendrake/PycharmProjects/cantina/viewtree_search_cli_demo_usage.py
+"C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\python.exe" "C:/Users/Richard Pendrake/PycharmProjects/cantina/viewtree_search_cli_demo_usage.py"
 ViewTree Search
 Type 'help' for instructions for use.
 >>source
@@ -10,77 +10,35 @@ Remember: typing 'help' will get you instructions to use this CLI.
 >>@https://raw.githubusercontent.com/jdolan/quetoo/master/src/cgame/default/ui/settings/SystemViewController.json
 Loaded source from  https://raw.githubusercontent.com/jdolan/quetoo/master/src/cgame/default/ui/settings/SystemViewController.json
 >>Input
---- Logging error ---
-Traceback (most recent call last):
-  File "C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\lib\logging\__init__.py", line 1034, in emit
-    msg = self.format(record)
-  File "C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\lib\logging\__init__.py", line 880, in format
-    return fmt.format(record)
-  File "C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\lib\logging\__init__.py", line 619, in format
-    record.message = record.getMessage()
-  File "C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\lib\logging\__init__.py", line 380, in getMessage
-    msg = msg % self.args
-TypeError: not all arguments converted during string formatting
-Call stack:
-  File "C:/Users/Richard Pendrake/PycharmProjects/cantina/viewtree_search_cli_demo_usage.py", line 4, in <module>
-    search_cli.prompt()
-  File "C:\Users\Richard Pendrake\PycharmProjects\cantina\viewtree_search_cli.py", line 314, in prompt
-    self.viewtree_search_with_combinators(command_string)
-  File "C:\Users\Richard Pendrake\PycharmProjects\cantina\viewtree_search_cli.py", line 179, in viewtree_search_with_combinators
-    command_list = self.split_string_command(command_string)
-  File "C:\Users\Richard Pendrake\PycharmProjects\cantina\viewtree_search_cli.py", line 45, in split_string_command
-    logging.info('string command', string_command)
-Message: 'string command'
-Arguments: ('Input',)
---- Logging error ---
-Traceback (most recent call last):
-  File "C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\lib\logging\__init__.py", line 1034, in emit
-    msg = self.format(record)
-  File "C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\lib\logging\__init__.py", line 880, in format
-    return fmt.format(record)
-  File "C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\lib\logging\__init__.py", line 619, in format
-    record.message = record.getMessage()
-  File "C:\Users\Richard Pendrake\AppData\Local\Programs\Python\Python37\lib\logging\__init__.py", line 380, in getMessage
-    msg = msg % self.args
-TypeError: not all arguments converted during string formatting
-Call stack:
-  File "C:/Users/Richard Pendrake/PycharmProjects/cantina/viewtree_search_cli_demo_usage.py", line 4, in <module>
-    search_cli.prompt()
-  File "C:\Users\Richard Pendrake\PycharmProjects\cantina\viewtree_search_cli.py", line 314, in prompt
-    self.viewtree_search_with_combinators(command_string)
-  File "C:\Users\Richard Pendrake\PycharmProjects\cantina\viewtree_search_cli.py", line 179, in viewtree_search_with_combinators
-    command_list = self.split_string_command(command_string)
-  File "C:\Users\Richard Pendrake\PycharmProjects\cantina\viewtree_search_cli.py", line 61, in split_string_command
-    logging.info('command list', command_list)
-Message: 'command list'
-Arguments: (['Input'],)
-{'class': 'Input', 'label': {'text': {'text': 'Video mode'}}, 'control': {'class': 'VideoModeSelect', 'identifier': 'videoMode'}}
-{'class': 'Input', 'label': {'text': {'text': 'Texture mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'textureMode', 'expectsStringValue': True, 'var': 'r_texture_mode'}}
-{'class': 'Input', 'label': {'text': {'text': 'Modulate'}}, 'control': {'class': 'CvarSlider', 'min': 1, 'max': 5, 'var': 'r_modulate'}}
-{'class': 'Input', 'label': {'text': {'text': 'Reverse stereo'}}, 'control': {'class': 'CvarCheckbox', 'var': 's_reverse'}}
-{'class': 'Input', 'label': {'text': {'text': 'Supersample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'supersample', 'var': 'r_supersample'}}
-{'class': 'Input', 'label': {'text': {'text': 'Parallax'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_parallax'}}
-{'class': 'Input', 'label': {'text': {'text': 'Music'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_music_volume'}}
-{'class': 'Input', 'label': {'text': {'text': 'Multisample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'multisample', 'var': 'r_multisample'}}
-{'class': 'Input', 'label': {'text': {'text': 'Brightness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_brightness'}}
-{'class': 'Input', 'label': {'text': {'text': 'Network graph'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_draw_net_graph'}}
-{'class': 'Input', 'label': {'text': {'text': 'Effects'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_effects_volume'}}
-{'class': 'Input', 'label': {'text': {'text': 'Download models'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}
-{'class': 'Input', 'label': {'text': {'text': 'Vertical sync'}}, 'control': {'class': 'CvarSelect', 'identifier': 'verticalSync', 'var': 'r_swap_interval'}}
-{'class': 'Input', 'label': {'text': {'text': 'Contrast'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_contrast'}}
-{'class': 'Input', 'label': {'text': {'text': 'Bumpmapping'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_bumpmap'}}
-{'class': 'Input', 'label': {'text': {'text': 'Gamma'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_gamma'}}
-{'class': 'Input', 'label': {'text': {'text': 'Specular'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_specular'}}
 {'class': 'Input', 'label': {'text': {'text': 'Frame limiter'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 250, 'step': 5, 'var': 'cl_max_fps'}}
-{'class': 'Input', 'label': {'text': {'text': 'Window mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'windowMode', 'var': 'r_fullscreen'}}
-{'class': 'Input', 'label': {'text': {'text': 'Ambient'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_ambient_volume'}}
-{'class': 'Input', 'label': {'text': {'text': 'Download maps'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_maps'}}
-{'class': 'Input', 'label': {'text': {'text': 'Hardness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_hardness'}}
-{'class': 'Input', 'label': {'text': {'text': 'Anisotropy'}}, 'control': {'class': 'CvarSelect', 'identifier': 'anisotropy', 'var': 'r_anisotropy'}}
-{'class': 'Input', 'label': {'text': {'text': 'Master'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Multisample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'multisample', 'var': 'r_multisample'}}
 {'class': 'Input', 'label': {'text': {'text': 'Connection speed'}}, 'control': {'class': 'CvarSelect', 'identifier': 'rate', 'var': 'rate'}}
+{'class': 'Input', 'label': {'text': {'text': 'Video mode'}}, 'control': {'class': 'VideoModeSelect', 'identifier': 'videoMode'}}
+{'class': 'Input', 'label': {'text': {'text': 'Brightness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_brightness'}}
+{'class': 'Input', 'label': {'text': {'text': 'Download maps'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_maps'}}
+{'class': 'Input', 'label': {'text': {'text': 'Vertical sync'}}, 'control': {'class': 'CvarSelect', 'identifier': 'verticalSync', 'var': 'r_swap_interval'}}
+{'class': 'Input', 'label': {'text': {'text': 'Effects'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_effects_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Music'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_music_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Window mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'windowMode', 'var': 'r_fullscreen'}}
+{'class': 'Input', 'label': {'text': {'text': 'Anisotropy'}}, 'control': {'class': 'CvarSelect', 'identifier': 'anisotropy', 'var': 'r_anisotropy'}}
+{'class': 'Input', 'label': {'text': {'text': 'Modulate'}}, 'control': {'class': 'CvarSlider', 'min': 1, 'max': 5, 'var': 'r_modulate'}}
+{'class': 'Input', 'label': {'text': {'text': 'Texture mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'textureMode', 'expectsStringValue': True, 'var': 'r_texture_mode'}}
+{'class': 'Input', 'label': {'text': {'text': 'Specular'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_specular'}}
+{'class': 'Input', 'label': {'text': {'text': 'Reverse stereo'}}, 'control': {'class': 'CvarCheckbox', 'var': 's_reverse'}}
+{'class': 'Input', 'label': {'text': {'text': 'Hardness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_hardness'}}
+{'class': 'Input', 'label': {'text': {'text': 'Master'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Parallax'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_parallax'}}
+{'class': 'Input', 'label': {'text': {'text': 'Bumpmapping'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_bumpmap'}}
 {'class': 'Input', 'label': {'text': {'text': 'High DPI (4K)'}}, 'control': {'class': 'CvarCheckbox', 'var': 'r_allow_high_dpi'}}
+{'class': 'Input', 'label': {'text': {'text': 'Ambient'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_ambient_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Gamma'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_gamma'}}
+{'class': 'Input', 'label': {'text': {'text': 'Network graph'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_draw_net_graph'}}
+{'class': 'Input', 'label': {'text': {'text': 'Download models'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}
+{'class': 'Input', 'label': {'text': {'text': 'Supersample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'supersample', 'var': 'r_supersample'}}
+{'class': 'Input', 'label': {'text': {'text': 'Contrast'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_contrast'}}
 Found 26 entries
+>>source
+{'identifier': 'System', 'subviews': [{'class': 'StackView', 'classNames': ['container'], 'subviews': [{'class': 'StackView', 'classNames': ['columns', 'container'], 'subviews': [{'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Display'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Video mode'}}, 'control': {'class': 'VideoModeSelect', 'identifier': 'videoMode'}}, {'class': 'Input', 'label': {'text': {'text': 'High DPI (4K)'}}, 'control': {'class': 'CvarCheckbox', 'var': 'r_allow_high_dpi'}}, {'class': 'Input', 'label': {'text': {'text': 'Window mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'windowMode', 'var': 'r_fullscreen'}}, {'class': 'Input', 'label': {'text': {'text': 'Vertical sync'}}, 'control': {'class': 'CvarSelect', 'identifier': 'verticalSync', 'var': 'r_swap_interval'}}, {'class': 'Input', 'label': {'text': {'text': 'Frame limiter'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 250, 'step': 5, 'var': 'cl_max_fps'}}]}}, {'class': 'Box', 'label': {'text': {'text': 'Rendering'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Texture mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'textureMode', 'expectsStringValue': True, 'var': 'r_texture_mode'}}, {'class': 'Input', 'label': {'text': {'text': 'Anisotropy'}}, 'control': {'class': 'CvarSelect', 'identifier': 'anisotropy', 'var': 'r_anisotropy'}}, {'class': 'Input', 'label': {'text': {'text': 'Multisample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'multisample', 'var': 'r_multisample'}}, {'class': 'Input', 'label': {'text': {'text': 'Supersample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'supersample', 'var': 'r_supersample'}}]}}]}, {'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Picture'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Brightness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_brightness'}}, {'class': 'Input', 'label': {'text': {'text': 'Contrast'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_contrast'}}, {'class': 'Input', 'label': {'text': {'text': 'Gamma'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_gamma'}}, {'class': 'Input', 'label': {'text': {'text': 'Modulate'}}, 'control': {'class': 'CvarSlider', 'min': 1, 'max': 5, 'var': 'r_modulate'}}, {'class': 'Input', 'label': {'text': {'text': 'Bumpmapping'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_bumpmap'}}, {'class': 'Input', 'label': {'text': {'text': 'Hardness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_hardness'}}, {'class': 'Input', 'label': {'text': {'text': 'Specular'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_specular'}}, {'class': 'Input', 'label': {'text': {'text': 'Parallax'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_parallax'}}]}}]}, {'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Sound'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Master'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Effects'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_effects_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Ambient'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_ambient_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Music'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_music_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Reverse stereo'}}, 'control': {'class': 'CvarCheckbox', 'var': 's_reverse'}}]}}, {'class': 'Box', 'label': {'text': {'text': 'Network'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Connection speed'}}, 'control': {'class': 'CvarSelect', 'identifier': 'rate', 'var': 'rate'}}, {'class': 'Input', 'label': {'text': {'text': 'Download maps'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_maps'}}, {'class': 'Input', 'label': {'text': {'text': 'Download models'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}, {'class': 'Input', 'label': {'text': {'text': 'Network graph'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_draw_net_graph'}}]}}]}]}, {'class': 'StackView', 'classNames': ['accessoryView', 'container'], 'subviews': [{'class': 'Button', 'identifier': 'apply', 'title': {'text': 'Apply'}}]}]}]}
 >>garindan
 Found 0 entries
 >>!mos_eisley.json
@@ -88,24 +46,26 @@ Loaded source from  mos_eisley.json
 >>garindan
 {'class': 'garindan', 'classNames': ['container']}
 Found 1 entry
+>>
 >>#System.container
-{'class': 'StackView', 'classNames': ['container'], 'subviews': [{'label': {'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}}, {'class': 'garindan', 'classNames': ['container']}]}
 {'class': 'garindan', 'classNames': ['container']}
+{'class': 'StackView', 'classNames': ['container'], 'subviews': [{'label': {'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}}, {'class': 'garindan', 'classNames': ['container']}]}
 Found 2 entries
 >>exit
-Are you sure?No way
+Are you sure?No way!
 Exit attempt cancelled.  Resuming CLI
 JSON source data is still loaded from before
 >>CvarCheckbox
-Found 0 entries
->>debug
 Found 0 entries
 >>?
 Debug mode enabled.
 >>@https://raw.githubusercontent.com/jdolan/quetoo/master/src/cgame/default/ui/settings/SystemViewController.json
 Loaded source from  https://raw.githubusercontent.com/jdolan/quetoo/master/src/cgame/default/ui/settings/SystemViewController.json
 Source:  {'identifier': 'System', 'subviews': [{'class': 'StackView', 'classNames': ['container'], 'subviews': [{'class': 'StackView', 'classNames': ['columns', 'container'], 'subviews': [{'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Display'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Video mode'}}, 'control': {'class': 'VideoModeSelect', 'identifier': 'videoMode'}}, {'class': 'Input', 'label': {'text': {'text': 'High DPI (4K)'}}, 'control': {'class': 'CvarCheckbox', 'var': 'r_allow_high_dpi'}}, {'class': 'Input', 'label': {'text': {'text': 'Window mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'windowMode', 'var': 'r_fullscreen'}}, {'class': 'Input', 'label': {'text': {'text': 'Vertical sync'}}, 'control': {'class': 'CvarSelect', 'identifier': 'verticalSync', 'var': 'r_swap_interval'}}, {'class': 'Input', 'label': {'text': {'text': 'Frame limiter'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 250, 'step': 5, 'var': 'cl_max_fps'}}]}}, {'class': 'Box', 'label': {'text': {'text': 'Rendering'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Texture mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'textureMode', 'expectsStringValue': True, 'var': 'r_texture_mode'}}, {'class': 'Input', 'label': {'text': {'text': 'Anisotropy'}}, 'control': {'class': 'CvarSelect', 'identifier': 'anisotropy', 'var': 'r_anisotropy'}}, {'class': 'Input', 'label': {'text': {'text': 'Multisample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'multisample', 'var': 'r_multisample'}}, {'class': 'Input', 'label': {'text': {'text': 'Supersample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'supersample', 'var': 'r_supersample'}}]}}]}, {'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Picture'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Brightness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_brightness'}}, {'class': 'Input', 'label': {'text': {'text': 'Contrast'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_contrast'}}, {'class': 'Input', 'label': {'text': {'text': 'Gamma'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_gamma'}}, {'class': 'Input', 'label': {'text': {'text': 'Modulate'}}, 'control': {'class': 'CvarSlider', 'min': 1, 'max': 5, 'var': 'r_modulate'}}, {'class': 'Input', 'label': {'text': {'text': 'Bumpmapping'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_bumpmap'}}, {'class': 'Input', 'label': {'text': {'text': 'Hardness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_hardness'}}, {'class': 'Input', 'label': {'text': {'text': 'Specular'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_specular'}}, {'class': 'Input', 'label': {'text': {'text': 'Parallax'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_parallax'}}]}}]}, {'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Sound'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Master'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Effects'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_effects_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Ambient'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_ambient_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Music'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_music_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Reverse stereo'}}, 'control': {'class': 'CvarCheckbox', 'var': 's_reverse'}}]}}, {'class': 'Box', 'label': {'text': {'text': 'Network'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Connection speed'}}, 'control': {'class': 'CvarSelect', 'identifier': 'rate', 'var': 'rate'}}, {'class': 'Input', 'label': {'text': {'text': 'Download maps'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_maps'}}, {'class': 'Input', 'label': {'text': {'text': 'Download models'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}, {'class': 'Input', 'label': {'text': {'text': 'Network graph'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_draw_net_graph'}}]}}]}]}, {'class': 'StackView', 'classNames': ['accessoryView', 'container'], 'subviews': [{'class': 'Button', 'identifier': 'apply', 'title': {'text': 'Apply'}}]}]}]}
+>>
 >>Input
+INFO:root:string command: Input
+INFO:root:command list['Input']
 INFO:root:Level0
 INFO:root:called:<class 'dict'>{'identifier': 'System', 'subviews': [{'class': 'StackView', 'classNames': ['container'], 'subviews': [{'class': 'StackView', 'classNames': ['columns', 'container'], 'subviews': [{'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Display'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Video mode'}}, 'control': {'class': 'VideoModeSelect', 'identifier': 'videoMode'}}, {'class': 'Input', 'label': {'text': {'text': 'High DPI (4K)'}}, 'control': {'class': 'CvarCheckbox', 'var': 'r_allow_high_dpi'}}, {'class': 'Input', 'label': {'text': {'text': 'Window mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'windowMode', 'var': 'r_fullscreen'}}, {'class': 'Input', 'label': {'text': {'text': 'Vertical sync'}}, 'control': {'class': 'CvarSelect', 'identifier': 'verticalSync', 'var': 'r_swap_interval'}}, {'class': 'Input', 'label': {'text': {'text': 'Frame limiter'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 250, 'step': 5, 'var': 'cl_max_fps'}}]}}, {'class': 'Box', 'label': {'text': {'text': 'Rendering'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Texture mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'textureMode', 'expectsStringValue': True, 'var': 'r_texture_mode'}}, {'class': 'Input', 'label': {'text': {'text': 'Anisotropy'}}, 'control': {'class': 'CvarSelect', 'identifier': 'anisotropy', 'var': 'r_anisotropy'}}, {'class': 'Input', 'label': {'text': {'text': 'Multisample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'multisample', 'var': 'r_multisample'}}, {'class': 'Input', 'label': {'text': {'text': 'Supersample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'supersample', 'var': 'r_supersample'}}]}}]}, {'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Picture'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Brightness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_brightness'}}, {'class': 'Input', 'label': {'text': {'text': 'Contrast'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_contrast'}}, {'class': 'Input', 'label': {'text': {'text': 'Gamma'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_gamma'}}, {'class': 'Input', 'label': {'text': {'text': 'Modulate'}}, 'control': {'class': 'CvarSlider', 'min': 1, 'max': 5, 'var': 'r_modulate'}}, {'class': 'Input', 'label': {'text': {'text': 'Bumpmapping'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_bumpmap'}}, {'class': 'Input', 'label': {'text': {'text': 'Hardness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_hardness'}}, {'class': 'Input', 'label': {'text': {'text': 'Specular'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_specular'}}, {'class': 'Input', 'label': {'text': {'text': 'Parallax'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_parallax'}}]}}]}, {'class': 'StackView', 'classNames': ['column', 'container'], 'subviews': [{'class': 'Box', 'label': {'text': {'text': 'Sound'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Master'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Effects'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_effects_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Ambient'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_ambient_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Music'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_music_volume'}}, {'class': 'Input', 'label': {'text': {'text': 'Reverse stereo'}}, 'control': {'class': 'CvarCheckbox', 'var': 's_reverse'}}]}}, {'class': 'Box', 'label': {'text': {'text': 'Network'}}, 'contentView': {'subviews': [{'class': 'Input', 'label': {'text': {'text': 'Connection speed'}}, 'control': {'class': 'CvarSelect', 'identifier': 'rate', 'var': 'rate'}}, {'class': 'Input', 'label': {'text': {'text': 'Download maps'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_maps'}}, {'class': 'Input', 'label': {'text': {'text': 'Download models'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}, {'class': 'Input', 'label': {'text': {'text': 'Network graph'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_draw_net_graph'}}]}}]}]}, {'class': 'StackView', 'classNames': ['accessoryView', 'container'], 'subviews': [{'class': 'Button', 'identifier': 'apply', 'title': {'text': 'Apply'}}]}]}]}
 INFO:root:found a dictionary.  searching it.
@@ -476,36 +436,35 @@ INFO:root:recursing list item [ 0
 INFO:root:Level6
 INFO:root:called:<class 'dict'>{'class': 'Button', 'identifier': 'apply', 'title': {'text': 'Apply'}}
 INFO:root:found a dictionary.  searching it.
-{'class': 'Input', 'label': {'text': {'text': 'Video mode'}}, 'control': {'class': 'VideoModeSelect', 'identifier': 'videoMode'}}
-{'class': 'Input', 'label': {'text': {'text': 'Texture mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'textureMode', 'expectsStringValue': True, 'var': 'r_texture_mode'}}
-{'class': 'Input', 'label': {'text': {'text': 'Modulate'}}, 'control': {'class': 'CvarSlider', 'min': 1, 'max': 5, 'var': 'r_modulate'}}
-{'class': 'Input', 'label': {'text': {'text': 'Reverse stereo'}}, 'control': {'class': 'CvarCheckbox', 'var': 's_reverse'}}
-{'class': 'Input', 'label': {'text': {'text': 'Supersample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'supersample', 'var': 'r_supersample'}}
-{'class': 'Input', 'label': {'text': {'text': 'Parallax'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_parallax'}}
-{'class': 'Input', 'label': {'text': {'text': 'Music'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_music_volume'}}
-{'class': 'Input', 'label': {'text': {'text': 'Multisample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'multisample', 'var': 'r_multisample'}}
-{'class': 'Input', 'label': {'text': {'text': 'Brightness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_brightness'}}
-{'class': 'Input', 'label': {'text': {'text': 'Network graph'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_draw_net_graph'}}
-{'class': 'Input', 'label': {'text': {'text': 'Effects'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_effects_volume'}}
-{'class': 'Input', 'label': {'text': {'text': 'Download models'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}
-{'class': 'Input', 'label': {'text': {'text': 'Vertical sync'}}, 'control': {'class': 'CvarSelect', 'identifier': 'verticalSync', 'var': 'r_swap_interval'}}
-{'class': 'Input', 'label': {'text': {'text': 'Contrast'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_contrast'}}
-{'class': 'Input', 'label': {'text': {'text': 'Bumpmapping'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_bumpmap'}}
-{'class': 'Input', 'label': {'text': {'text': 'Gamma'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_gamma'}}
-{'class': 'Input', 'label': {'text': {'text': 'Specular'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_specular'}}
 {'class': 'Input', 'label': {'text': {'text': 'Frame limiter'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 250, 'step': 5, 'var': 'cl_max_fps'}}
-{'class': 'Input', 'label': {'text': {'text': 'Window mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'windowMode', 'var': 'r_fullscreen'}}
-{'class': 'Input', 'label': {'text': {'text': 'Ambient'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_ambient_volume'}}
-{'class': 'Input', 'label': {'text': {'text': 'Download maps'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_maps'}}
-{'class': 'Input', 'label': {'text': {'text': 'Hardness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_hardness'}}
-{'class': 'Input', 'label': {'text': {'text': 'Anisotropy'}}, 'control': {'class': 'CvarSelect', 'identifier': 'anisotropy', 'var': 'r_anisotropy'}}
-{'class': 'Input', 'label': {'text': {'text': 'Master'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Multisample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'multisample', 'var': 'r_multisample'}}
 {'class': 'Input', 'label': {'text': {'text': 'Connection speed'}}, 'control': {'class': 'CvarSelect', 'identifier': 'rate', 'var': 'rate'}}
+{'class': 'Input', 'label': {'text': {'text': 'Video mode'}}, 'control': {'class': 'VideoModeSelect', 'identifier': 'videoMode'}}
+{'class': 'Input', 'label': {'text': {'text': 'Brightness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_brightness'}}
+{'class': 'Input', 'label': {'text': {'text': 'Download maps'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_maps'}}
+{'class': 'Input', 'label': {'text': {'text': 'Vertical sync'}}, 'control': {'class': 'CvarSelect', 'identifier': 'verticalSync', 'var': 'r_swap_interval'}}
+{'class': 'Input', 'label': {'text': {'text': 'Effects'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_effects_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Music'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_music_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Window mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'windowMode', 'var': 'r_fullscreen'}}
+{'class': 'Input', 'label': {'text': {'text': 'Anisotropy'}}, 'control': {'class': 'CvarSelect', 'identifier': 'anisotropy', 'var': 'r_anisotropy'}}
+{'class': 'Input', 'label': {'text': {'text': 'Modulate'}}, 'control': {'class': 'CvarSlider', 'min': 1, 'max': 5, 'var': 'r_modulate'}}
+{'class': 'Input', 'label': {'text': {'text': 'Texture mode'}}, 'control': {'class': 'CvarSelect', 'identifier': 'textureMode', 'expectsStringValue': True, 'var': 'r_texture_mode'}}
+{'class': 'Input', 'label': {'text': {'text': 'Specular'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_specular'}}
+{'class': 'Input', 'label': {'text': {'text': 'Reverse stereo'}}, 'control': {'class': 'CvarCheckbox', 'var': 's_reverse'}}
+{'class': 'Input', 'label': {'text': {'text': 'Hardness'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_hardness'}}
+{'class': 'Input', 'label': {'text': {'text': 'Master'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Parallax'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_parallax'}}
+{'class': 'Input', 'label': {'text': {'text': 'Bumpmapping'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_bumpmap'}}
 {'class': 'Input', 'label': {'text': {'text': 'High DPI (4K)'}}, 'control': {'class': 'CvarCheckbox', 'var': 'r_allow_high_dpi'}}
+{'class': 'Input', 'label': {'text': {'text': 'Ambient'}}, 'control': {'class': 'CvarSlider', 'min': 0, 'max': 1, 'var': 's_ambient_volume'}}
+{'class': 'Input', 'label': {'text': {'text': 'Gamma'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_gamma'}}
+{'class': 'Input', 'label': {'text': {'text': 'Network graph'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_draw_net_graph'}}
+{'class': 'Input', 'label': {'text': {'text': 'Download models'}}, 'control': {'class': 'CvarCheckbox', 'var': 'cl_download_models'}}
+{'class': 'Input', 'label': {'text': {'text': 'Supersample'}}, 'control': {'class': 'CvarSelect', 'identifier': 'supersample', 'var': 'r_supersample'}}
+{'class': 'Input', 'label': {'text': {'text': 'Contrast'}}, 'control': {'class': 'CvarSlider', 'min': 0.1, 'max': 2, 'var': 'r_contrast'}}
 Found 26 entries
 >>exit
 Are you sure?Yes, please
 
 Process finished with exit code 0
-
 ```
