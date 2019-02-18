@@ -1,17 +1,6 @@
 from json import load
 from viewtree_search_cli import viewtree_search_cli
 
-modal_nodes_test_file = 'the_modal_nodes.json'
-mos_eisley_test_file = 'mos_eisley.json'
-
-
-def output_results(results):
-    '''Output viewtree search results'''
-    for result in results:
-        print(result)
-    print('{} results found'.format(len(results)))
-    return True
-
 
 def perform_search(
         demo_search_object,
@@ -26,7 +15,7 @@ def perform_search(
             search_hits,
             halt_on_match=halt_on_match
         )
-    output_results(search_results)
+    demo_search_object.output_results(search_results)
     return True
 
 if __name__ == "__main__":
@@ -34,6 +23,9 @@ if __name__ == "__main__":
 
     '''Create an object for use in searching'''
     viewtree_search_object = viewtree_search_cli()
+
+    modal_nodes_test_file = 'the_modal_nodes.json'
+    mos_eisley_test_file = 'mos_eisley.json'
 
     with open(modal_nodes_test_file, 'r') as test_file_handle:
         viewtree_search_object.json_source = load(test_file_handle)
