@@ -1,12 +1,14 @@
-from json import load, loads
-import urllib
-import urllib.request
 import logging
 import sys
-import string
+import urllib.request
+from json import load, loads
 
 
 class viewtree_search_cli:
+    '''
+    Provides a CLI for a user to load JSON from files
+    or URLs and then search it with selectors
+    '''
 
     def output_welcome_message(self):
         '''
@@ -14,6 +16,7 @@ class viewtree_search_cli:
         '''
         print("ViewTree Search")
         print("Type 'help' for instructions for use.")
+        return True
 
     def __init__(self):
         '''
@@ -168,8 +171,9 @@ class viewtree_search_cli:
         for result in results:
             print(result)
         print("Found 1 entry") \
-            if len(results) == 1 \
+            if len(results) == 1\
             else print("Found {} entries".format(len(results)))
+        return True
 
     def viewtree_search_with_combinators(self, command_string):
         command_list = self.split_string_command(command_string)
@@ -189,18 +193,18 @@ class viewtree_search_cli:
         This outputs the status.
         '''
         print("JSON source data is still loaded from before") \
-            if self.json_source \
-            else print(
-            "No JSON source data exists for viewtree searching.")
+            if self.json_source else \
+            print("No JSON source data exists for viewtree searching.")
+        return True
 
     def toggle_debug_mode(self):
         '''
         Turns off and on debug mode for the viewtree search cli
         '''
         self.debug_mode = not self.debug_mode
-        print("Debug mode enabled.") \
-            if self.debug_mode \
-            else print("Debug mode disabled.")
+        print("Debug mode enabled.") if self.debug_mode else \
+            print("Debug mode disabled.")
+        return True
 
     def load_json_from_file(self,
                             command_string
@@ -220,6 +224,7 @@ class viewtree_search_cli:
             print("Error loading file ", json_file_name)
             print("Please review the file path and name and try again.")
             self.json_source_status()
+        return True
 
     def print_help(self):
         '''
@@ -240,6 +245,7 @@ class viewtree_search_cli:
               "using the specified URL-- don't use the brackets.  ")
         print("Simple selector")
         print("Compound selector")
+        return True
 
     def load_json_from_url(self,
                            command_string
@@ -261,6 +267,7 @@ class viewtree_search_cli:
             print("Error loading URL ", command_url)
             print("Please review the URL/internet connection and try again.")
             self.json_source_status()
+        return True
 
     def attempt_exit(self):
         '''
@@ -272,6 +279,7 @@ class viewtree_search_cli:
         else:
             print("Exit attempt cancelled.  Resuming CLI")
             self.json_source_status()
+        return True
 
     def prompt(self):
         '''
