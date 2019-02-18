@@ -1,7 +1,79 @@
-# Han-Shot-First
+# ViewTree Search CLI
 
+ViewTree Search CLI is a CLI which allows a user to load ViewTree JSON scripts from files or from URLs and then perform selector searches on it.
 
-Here are some elements I expect to be able to provide, if needed:
+A ViewTree is a hierarchical JSON with attributes which describe a view.
+Selectors allow a user to identify portions of the ViewTree which are of interest by key attribute values.
+The ViewTree Search CLI searches a ViewTree JSON using selectors as input from the user.
+
+Selectors handled now include:
+* Simple selectors
+  * Only one of:
+    * a view class name (no prefixes)
+    * or a CSS class name (prefixed with a '.')
+    * or a view identifier (prefixed with a '#')
+* Compound selectors
+  * Two or more simple selectors 
+  * Note: due to not having a prefix, only one view class name can be included in a Compound Selector
+  
+# Key Assumptions
+* Python's native recursion with no modification to the 1000 recursion depth limit is adequate to handle inputs.  This assumption prevents a more complicated architecture in which a recursion stack is maintained rather than using straightforward recursion.  It also prevents overriding Python's default 1000 recursion depth limit.
+* A compound selector will match portions of the ViewTree simultaneously matched by all selectors in the compound selector with no regard to distance between selectors and with no implied combinators other than that all selectors must be engaged at the same time.
+* A compound selector match will not short-circuit further descendent searches for other compound selector matches deeper in the ViewTree.  
+* Output of the lowest-most class in the ViewTree JSON which satisfies the selector match (like a CSS match) is satisfactory.
+  
+# Up Next
+- [ ] Attempt complex selectors/selector chaining
+
+## Getting Started
+
+Perform the installation steps in the Installing section of this readme.
+
+### Prerequisites
+
+ViewTree Search CLI was developed in Python 3.7.  However, it should be backwards compatible into Python 3.6.  I have not tested it in earlier releases of Python 3.
+
+### Installing
+
+Download these Python files into a folder which has access to Python 3.6 or higher:
+
+* viewtree_search_cli.py
+* viewtree_search_cli_demo_usage.py
+* test_viewtree_search.py
+
+Download these test ViewTree JSON files into the same folder:
+
+* the_modal_nodes.json
+* mos_eisley.json
+
+These are helpful but not necessary:
+
+* viewtree_search_demo_usage.py
+
+## Running the tests
+
+Tests have been batched in one Python module.  To execute it, run this command from the command line in the folder in which the files are installed:
+test_viewtree_search.py
+
+## Contributing
+
+For now, I'd be excited to receive pull requests.  I don't have rules for contributing right now.
+
+## Authors
+
+* **Erik Pohl** - *Initial work* - 
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Thanks to everyone who has motivated me to learn more.
+
+## Standards
+
+Here is a generic list of standards which are applied when preparing a build.
 
 - [x] Apply this checklist to all new projects as step one
 - [x] A complete regression test suite in UnitTest (with homegrown parameterized testing)
