@@ -27,8 +27,7 @@ if __name__ == "__main__":
     modal_nodes_test_file = 'the_modal_nodes.json'
     mos_eisley_test_file = 'mos_eisley.json'
 
-    with open(modal_nodes_test_file, 'r') as test_file_handle:
-        viewtree_search_object.json_source = load(test_file_handle)
+    viewtree_search_object.load_json_from_file(modal_nodes_test_file)
 
     perform_search(viewtree_search_object, ['Input'], False)
     perform_search(viewtree_search_object, ['#videoMode'], False)
@@ -36,8 +35,7 @@ if __name__ == "__main__":
     perform_search(viewtree_search_object, ['#supersample'], False)
     perform_search(viewtree_search_object, ['.container'], False)
 
-    with open(mos_eisley_test_file, 'r') as test_file_handle:
-        viewtree_search_object.json_source = load(test_file_handle)
+    viewtree_search_object.load_json_from_file(mos_eisley_test_file)
     perform_search(viewtree_search_object, ['#System'], True)
     perform_search(
         viewtree_search_object,
