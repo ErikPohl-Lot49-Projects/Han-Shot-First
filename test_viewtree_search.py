@@ -7,8 +7,10 @@ import io
 
 
 class TestCases(TestCase):
+    '''Test cases for the most complicated part of the ViewTree CLI'''
 
     def test_batches_of_cases(self):
+        ''''Repeatedly call tests based on a list of test dictionaries'''
         self.modal_nodes_test_file = 'the_modal_nodes.json'
         self.mos_eisley_test_file = 'mos_eisley.json'
         test_cases = [
