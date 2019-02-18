@@ -10,11 +10,14 @@ class viewtree_search_cli:
     or URLs and then search it with selectors
     '''
 
-    def output_welcome_message(self):
+    def _output_welcome_message(self):
         '''
         Output a welcome message for the viewtree CLI
         '''
         print("ViewTree Search")
+        print("ViewTree Search CLI is a CLI which allows a user to "
+              "load ViewTree JSON scripts from files or from URLs and"
+              " then perform selector searches on it.")
         print("Type 'help' for instructions for use.")
         return True
 
@@ -23,17 +26,17 @@ class viewtree_search_cli:
         Set up important attributes for the viewtree
         search CLI, and output a welcome message
         '''
-        self.delims = ('#', '.', '!', '@')
-        self.combinators = (' ', '>')
+
         self.json_source = None
         self.debug_mode = False
-        self.check_hits = lambda hits: \
-            len(
-                [hit_or_miss for hit_or_miss in hits if hit_or_miss > 0]
-            ) == len(hits)
+        self.check_hits = lambda hits: all(
+            [hit_or_miss for hit_or_miss in hits]
+        )
         self.recursable_tags = ('subviews', 'contentView', 'input', 'control')
+        self.delims = ('#', '.', '!', '@')
+        self.combinators = (' ', '>', '+', '~')
         logging.basicConfig(stream=sys.stderr, level=logging.INFO)
-        self.output_welcome_message()
+        self._output_welcome_message()
 
     def _set_logging(self):
         logging.disable(logging.NOTSET) \
@@ -109,29 +112,29 @@ class viewtree_search_cli:
             return results
         if isinstance(json_view_tree, dict):
             logging.info('found a dictionary.  searching it.')
-            for json_list_element in json_view_tree.keys():
-                if isinstance(json_view_tree[json_list_element], dict) or \
+            for json_key_value in json_view_tree.keys():
+                if isinstance(json_view_tree[json_key_value], dict) or \
                         (
-                                json_list_element != 'classNames' and
+                                json_key_value != 'classNames' and
                                 isinstance(
-                                    json_view_tree[json_list_element],
+                                    json_view_tree[json_key_value],
                                     list
                                 )
                         ):
-                    if json_list_element in self.recursable_tags:
+                    if json_key_value in self.recursable_tags:
                         logging.info(
                             str(
                                 type(
-                                    json_view_tree[json_list_element]
+                                    json_view_tree[json_key_value]
                                 )
                             ) + str(
-                                json_view_tree[json_list_element]
+                                json_view_tree[json_key_value]
                             )
                         )
                         logging.info('calling')
                         results.extend(
                             self.viewtree_search(
-                                json_view_tree[json_list_element],
+                                json_view_tree[json_key_value],
                                 local_search_commands,
                                 local_search_hits,
                                 halt_on_match=halt_on_match,
@@ -145,21 +148,21 @@ class viewtree_search_cli:
                         if (
                                 (
                                         command.startswith('#') and
-                                        (json_list_element == 'identifier') and
-                                        (json_view_tree[json_list_element] ==
+                                        (json_key_value == 'identifier') and
+                                        (json_view_tree[json_key_value] ==
                                          command[1:])
                                 ) or
                                 (
                                         command.startswith('.') and
-                                        (json_list_element == 'classNames') and
+                                        (json_key_value == 'classNames') and
                                         (command[1:] in
-                                         json_view_tree[json_list_element])
+                                         json_view_tree[json_key_value])
                                 ) or
                                 (
                                         not command.startswith('#') and
                                         not command.startswith('.') and
-                                        (json_list_element == 'class') and
-                                        (json_view_tree[json_list_element] ==
+                                        (json_key_value == 'class') and
+                                        (json_view_tree[json_key_value] ==
                                          command[0:])
                                 )
                         ):
