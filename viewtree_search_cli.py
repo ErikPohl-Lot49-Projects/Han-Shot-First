@@ -147,6 +147,12 @@ class viewtree_search_cli:
                         )
                     )
                 else:
+                    '''
+                    this entry in the JSON dictionary
+                    is not recursable.
+                    check it for matches with
+                    the selectors
+                    '''
                     for command_index, command \
                             in enumerate(local_search_commands):
                         if (
@@ -179,12 +185,16 @@ class viewtree_search_cli:
         return results
 
     def output_results(self, results):
+        '''
+        format the output of
+        the search results
+        '''
         for result in results:
             print(result)
         print("Found 1 entry") \
             if len(results) == 1\
             else print("Found {} entries".format(len(results)))
-        return True
+        return len(results)
 
     def viewtree_search_wrapper(self, command_string):
         command_list = self._split_string_command(command_string)
@@ -230,11 +240,13 @@ class viewtree_search_cli:
             print('Loaded source from ', json_file_name)
             if self.debug_mode:
                 print('Source: ', self.json_source)
+            success = True
         except:
-            print("Error loading file ", json_file_name)
+            print("Error loading file: ", json_file_name)
             print("Please review the file path and name and try again.")
             self._json_source_status()
-        return True
+            success = False
+        return success
 
     def print_help(self):
         '''
@@ -274,11 +286,13 @@ class viewtree_search_cli:
             print('Loaded source from ', command_url)
             if self.debug_mode:
                 print('Source: ', self.json_source)
+            success = True
         except:
             print("Error loading URL ", command_url)
             print("Please review the URL/internet connection and try again.")
             self._json_source_status()
-        return True
+            success = False
+        return success
 
     def _attempt_cli_exit(self):
         '''
