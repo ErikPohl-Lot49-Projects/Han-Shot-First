@@ -42,7 +42,10 @@ class viewtree_search_cli:
         Break apart a string command which is a set of selectors
         into a command useful for the search function
         '''
-        logging.info('string command', string_command)
+        logging.disable(logging.NOTSET) \
+            if self.debug_mode \
+            else logging.disable(logging.INFO)
+        logging.info('string command: '+ str(string_command))
         command_list = []
         current_command = ''
         for char in string_command:
@@ -58,7 +61,7 @@ class viewtree_search_cli:
                     current_command = char
         if current_command:
             command_list.append(current_command)
-        logging.info('command list', command_list)
+        logging.info('command list' + str(command_list))
         return command_list
 
     def viewtree_search(
@@ -235,16 +238,16 @@ class viewtree_search_cli:
             "ViewTree Search is a CLI which allows you to load JSON "
             "from a file or from a URL and search it for various selectors.")
         print("? toggles debug mode")
-        print("help outputs the help instructions [these]")
-        print("exit exits the CLI")
-        print("source outputs the current JSON source "
+        print("help-- outputs the help instructions [these]")
+        print("exit-- exits the CLI")
+        print("source-- outputs the current JSON source "
               "available for viewtree searching")
-        print("![file name] allows you to load a file of "
+        print("![file name]-- allows you to load a file of "
               "JSON named file name-- don't use the brackets.  ")
-        print("@[URL] allows you to load a URL of JSON "
+        print("@[URL]-- allows you to load a URL of JSON "
               "using the specified URL-- don't use the brackets.  ")
-        print("Simple selector")
-        print("Compound selector")
+        print("[Simple selector]-- Searches loaded JSON using the simple selector")
+        print("[Compound selector]-- Searches loaded JSON using the compound selector")
         return True
 
     def load_json_from_url(self,
@@ -287,7 +290,9 @@ class viewtree_search_cli:
         redirects to the appropriate functionality
         '''
         while True:
-            command_string = input(">>")
+            command_string = ''
+            while command_string == '':
+                command_string = input(">>")
             if command_string.startswith('!'):
                 self.load_json_from_file(command_string)
             elif command_string == '?':
