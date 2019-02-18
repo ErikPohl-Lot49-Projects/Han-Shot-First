@@ -124,7 +124,7 @@ class viewtree_search_cli:
                 current_json_value = json_view_tree[current_json_key]
                 '''
                 if it is a dict or a list which is not for key 'classNames'
-                it does
+                it does and it must be a recursable tag
                 '''
                 if (current_json_key in self.recursable_tags) and \
                         (isinstance(current_json_value, dict) or
