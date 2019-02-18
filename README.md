@@ -17,7 +17,7 @@ Selectors handled now include:
     * or a view identifier (prefixed with a '#')
 * Compound selectors
   * Two or more simple selectors 
-  * Note: due to not having a prefix, only one view class name can be included in a Compound Selector
+  * **Note:** _due to not having a prefix, only one view class name can be included in a Compound Selector_
   
 # Key Assumptions made when completing the work
 
@@ -31,7 +31,8 @@ Selectors handled now include:
 
 ## Getting Started
 
-Perform the installation steps in the Installing section of this readme.
+1. Retrieve files from the Han-Shot-First repo.
+2. Perform the installation steps in the Installing section of this readme.
 
 ### Prerequisites
 
