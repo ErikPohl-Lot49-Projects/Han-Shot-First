@@ -60,6 +60,10 @@ These are helpful but not necessary:
 
 * viewtree_search_demo_usage.py
 
+## Example usage
+
+Check out this [example transcript](https://github.com/ErikPohl-Lot49-Projects/Han-Shot-First/blob/master/Example_transcript.md).
+
 ## Running the tests
 
 Tests have been batched in one Python module.  To execute it, run this command from the command line in the folder in which the files are installed:
