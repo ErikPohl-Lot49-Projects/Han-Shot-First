@@ -115,7 +115,7 @@ In the version of Star Wars IV: A New Hope which I watched in a drive-in theater
 
 * I took the liberty of renaming SystemViewController.json to the_modal_nodes.json.  This is a reference to the band in the cantina scene in Star Wars IV: A New Hope.
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![What Would Han Solo Do?](https://github.com/ErikPohl-Lot49-Projects/Han-Shot-First/blob/master/media/What_would_Han_Solo_do__by_mjt423.jpg "What Would Han Solo Do?")
 
 
 
