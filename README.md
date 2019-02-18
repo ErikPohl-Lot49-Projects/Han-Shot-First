@@ -97,11 +97,11 @@ Here is a generic list of standards which are applied when preparing a build.
 - [x] Requirements documents, user-facing documents and presentations, and other documents consistent with Agile User Stories to add value.
 - [x] Commit statements which facilitate an understanding of code history.
 - [x] Readme.md pages with more interesting usage of markdown which tell a code narrative. 
-- [ ] For custom classes, create dunders as appropriate
-- [ ] Make good decisions relating to
-  - [ ] Exceptions versus return values
-  - [ ] Using idiomatic Python versus clarity of code
-  - [ ] Having functions return values -- as a default-- have a good reason not to
+- [x] For custom classes, create dunders as appropriate
+- [x] Make good decisions relating to
+  - [x] Exceptions versus return values
+  - [x] Using idiomatic Python versus clarity of code
+  - [x] Having functions return values -- as a default-- have a good reason not to
 
 # Trivia
 
