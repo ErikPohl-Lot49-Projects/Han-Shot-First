@@ -45,7 +45,7 @@ class viewtree_search_cli:
         logging.disable(logging.NOTSET) \
             if self.debug_mode \
             else logging.disable(logging.INFO)
-        logging.info('string command: '+ str(string_command))
+        logging.info('string command: ' + str(string_command))
         command_list = []
         current_command = ''
         for char in string_command:
@@ -246,8 +246,10 @@ class viewtree_search_cli:
               "JSON named file name-- don't use the brackets.  ")
         print("@[URL]-- allows you to load a URL of JSON "
               "using the specified URL-- don't use the brackets.  ")
-        print("[Simple selector]-- Searches loaded JSON using the simple selector")
-        print("[Compound selector]-- Searches loaded JSON using the compound selector")
+        print("[Simple selector]-- Searches loaded JSON "
+              "using the simple selector")
+        print("[Compound selector]-- Searches loaded "
+              "JSON using the compound selector")
         return True
 
     def load_json_from_url(self,
