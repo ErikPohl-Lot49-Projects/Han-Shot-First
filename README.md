@@ -117,6 +117,7 @@ In the version of Star Wars IV: A New Hope which I watched in a drive-in theater
 
 * I took the liberty of renaming SystemViewController.json to the_modal_nodes.json.  This is a reference to the band in the cantina scene in Star Wars IV: A New Hope.
 
+![Beep beep beep](https://github.com/ErikPohl-Lot49-Projects/Han-Shot-First/blob/master/media/296937d-emp.jpg "Beep beep beep")
 
 
 
