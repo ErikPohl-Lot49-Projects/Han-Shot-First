@@ -102,3 +102,22 @@ Here is a generic list of standards which are applied when preparing a build.
   - [ ] Using idiomatic Python versus clarity of code
   - [ ] Extend this list
   - [ ] Having functions return values -- as a default-- have a good reason not to
+
+# Trivia
+
+* The title of this repo refers to a controversy introduced invthe 1997 Special Edition Star Wars rerelease of Star Wars IV: A New Hope.
+
+In the version of Star Wars IV: A New Hope which I watched in a drive-in theater in Anderson, SC with my family in 1977, Han Solo, when cornered by a bounty hunter in the Mos Eisley cantina, understood his best and only option to avoid death was to use his blaster to eliminate Greedo.  It was self-defense.  It didn't make Han a bad antihero, just street smart: and it defined him clearly as an antihero when juxtaposed against Obi Wan Kenobi and the ways of a Jedi.
+
+* You will find garindan in the Mos Eisley test file.  This was another bounty hunter following Han in the Mos Eisley cantina.
+
+* Mos Eisley, the name of one of the test files, is a city on Tatooine which contains a cantina in which some critical exposition, or rising action, takes place in Star Wars IV: A New Hope.
+
+* I took the liberty of renaming SystemViewController.json to the_modal_nodes.json.  This is a reference to the band in the cantina scene in Star Wars IV: A New Hope.
+
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
+
+
+
+
