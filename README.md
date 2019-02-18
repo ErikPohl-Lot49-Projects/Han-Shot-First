@@ -2,7 +2,10 @@
 
 ViewTree Search CLI is a CLI which allows a user to load ViewTree JSON scripts from files or from URLs and then perform selector searches on it.
 
+**_What is a ViewTree?_**
 A ViewTree is a hierarchical JSON with attributes which describe a view.
+
+**_What are Selectors?_**
 Selectors allow a user to identify portions of the ViewTree which are of interest by key attribute values.
 The ViewTree Search CLI searches a ViewTree JSON using selectors as input from the user.
 
@@ -16,7 +19,8 @@ Selectors handled now include:
   * Two or more simple selectors 
   * Note: due to not having a prefix, only one view class name can be included in a Compound Selector
   
-# Key Assumptions
+# Key Assumptions made when completing the work
+
 * Python's native recursion with no modification to the 1000 recursion depth limit is adequate to handle inputs.  This assumption prevents a more complicated architecture in which a recursion stack is maintained rather than using straightforward recursion.  It also prevents overriding Python's default 1000 recursion depth limit.
 * A compound selector will match portions of the ViewTree simultaneously matched by all selectors in the compound selector with no regard to distance between selectors and with no implied combinators other than that all selectors must be engaged at the same time.
 * A compound selector match will not short-circuit further descendent searches for other compound selector matches deeper in the ViewTree.  
@@ -53,7 +57,9 @@ These are helpful but not necessary:
 ## Running the tests
 
 Tests have been batched in one Python module.  To execute it, run this command from the command line in the folder in which the files are installed:
+```
 test_viewtree_search.py
+```
 
 ## Contributing
 
