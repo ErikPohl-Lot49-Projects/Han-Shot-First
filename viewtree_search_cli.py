@@ -35,16 +35,19 @@ class viewtree_search_cli:
         logging.basicConfig(stream=sys.stderr, level=logging.INFO)
         self.output_welcome_message()
 
-    def split_string_command(self,
-                             string_command
-                             ):
+    def _set_logging(self):
+        logging.disable(logging.NOTSET) \
+            if self.debug_mode \
+            else logging.disable(logging.INFO)
+
+    def _split_string_command(self,
+                              string_command
+                              ):
         '''
         Break apart a string command which is a set of selectors
         into a command useful for the search function
         '''
-        logging.disable(logging.NOTSET) \
-            if self.debug_mode \
-            else logging.disable(logging.INFO)
+        self._set_logging()
         logging.info('string command: ' + str(string_command))
         command_list = []
         current_command = ''
@@ -77,9 +80,7 @@ class viewtree_search_cli:
         perform a viewtree search on a json_view_tree using search_commands
         output the list of findings of that search
         '''
-        logging.disable(logging.NOTSET) \
-            if debug_mode \
-            else logging.disable(logging.INFO)
+        self._set_logging()
         logging.info('Level' + str(level))
         local_search_commands = search_commands[:]
         local_search_hits = search_hits[:]
@@ -178,8 +179,8 @@ class viewtree_search_cli:
             else print("Found {} entries".format(len(results)))
         return True
 
-    def viewtree_search_with_combinators(self, command_string):
-        command_list = self.split_string_command(command_string)
+    def viewtree_search_wrapper(self, command_string):
+        command_list = self._split_string_command(command_string)
         command_hits = len(command_list)*[0]
         search_results = self.viewtree_search(
             self.json_source,
@@ -188,9 +189,9 @@ class viewtree_search_cli:
             debug_mode=self.debug_mode
         )
         self.output_results(list(set(search_results)))
-        return True
+        return search_results
 
-    def json_source_status(self):
+    def _json_source_status(self):
         '''
         Is there JSON source data available for searching?
         This outputs the status.
@@ -198,24 +199,23 @@ class viewtree_search_cli:
         print("JSON source data is still loaded from before") \
             if self.json_source else \
             print("No JSON source data exists for viewtree searching.")
-        return True
+        return self.json_source is not None
 
-    def toggle_debug_mode(self):
+    def _toggle_debug_mode(self):
         '''
         Turns off and on debug mode for the viewtree search cli
         '''
         self.debug_mode = not self.debug_mode
         print("Debug mode enabled.") if self.debug_mode else \
             print("Debug mode disabled.")
-        return True
+        return self.debug_mode
 
     def load_json_from_file(self,
-                            command_string
+                            json_file_name
                             ):
         '''
         Loads json from a file starting with ! and ending with the file name
         '''
-        json_file_name = command_string[1:]
         windowsed_file_name = json_file_name.replace('\\', '\\\\')
         try:
             with open(windowsed_file_name, 'r') as json_file_handle:
@@ -226,7 +226,7 @@ class viewtree_search_cli:
         except:
             print("Error loading file ", json_file_name)
             print("Please review the file path and name and try again.")
-            self.json_source_status()
+            self._json_source_status()
         return True
 
     def print_help(self):
@@ -253,14 +253,13 @@ class viewtree_search_cli:
         return True
 
     def load_json_from_url(self,
-                           command_string
+                           command_url
                            ):
         '''
         Loads json from a command string
         starting with @ and ending with the URL
         '''
         try:
-            command_url = command_string[1:]
             url_request = urllib.request.urlopen(command_url)
             data = url_request.read()
             encoding = url_request.info().get_content_charset('utf-8')
@@ -271,10 +270,10 @@ class viewtree_search_cli:
         except:
             print("Error loading URL ", command_url)
             print("Please review the URL/internet connection and try again.")
-            self.json_source_status()
+            self._json_source_status()
         return True
 
-    def attempt_exit(self):
+    def _attempt_cli_exit(self):
         '''
         Confirms exit from the CLI and then exits if sure
         '''
@@ -283,7 +282,7 @@ class viewtree_search_cli:
             exit()
         else:
             print("Exit attempt cancelled.  Resuming CLI")
-            self.json_source_status()
+            self._json_source_status()
         return True
 
     def prompt(self):
@@ -296,15 +295,15 @@ class viewtree_search_cli:
             while command_string == '':
                 command_string = input(">>")
             if command_string.startswith('!'):
-                self.load_json_from_file(command_string)
+                self.load_json_from_file(command_string[1:])
             elif command_string == '?':
-                self.toggle_debug_mode()
+                self._toggle_debug_mode()
             elif command_string.startswith('@'):
-                self.load_json_from_url(command_string)
+                self.load_json_from_url(command_string[1:])
             elif command_string.lower() == 'help':
                 self.print_help()
             elif command_string.lower() == 'exit':
-                self.attempt_exit()
+                self._attempt_cli_exit()
             elif command_string.lower() == 'source':
                 print(self.json_source) \
                     if self.json_source \
@@ -318,4 +317,4 @@ class viewtree_search_cli:
                     print("Remember: typing 'help' will get you "
                           "instructions to use this CLI.")
                 else:
-                    self.viewtree_search_with_combinators(command_string)
+                    self.viewtree_search_wrapper(command_string)
