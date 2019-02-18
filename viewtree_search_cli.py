@@ -1,5 +1,6 @@
 import logging
 import sys
+import re
 import urllib.request
 from json import load, loads
 
@@ -52,21 +53,13 @@ class viewtree_search_cli:
         '''
         self._set_logging()
         logging.info('string command: ' + str(string_command))
-        command_list = []
-        current_command = ''
-        for char in string_command:
-            if char not in self.delims and char not in self.combinators:
-                current_command += char
-            else:
-                if current_command:
-                    command_list.append(current_command)
-                if char in self.combinators:
-                    command_list.append(char)
-                    current_command = ''
-                else:
-                    current_command = char
-        if current_command:
-            command_list.append(current_command)
+        command_list = [string_command]
+        a = re.split("([\.#])", string_command)
+        logging.info(a)
+        logging.info(set(string_command).intersection(self.delims))
+        if set(string_command).intersection(self.delims):
+            command_list = a[0:1] + [''.join(i) for i in list(
+                zip(a[1::2], a[2::2]))]
         logging.info('command list' + str(command_list))
         return command_list
 
