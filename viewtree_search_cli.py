@@ -85,9 +85,16 @@ class viewtree_search_cli:
                      str(type(json_view_tree)) +
                      str(json_view_tree)
                      )
+        '''
+        are we at a leaf?
+        '''
         if isinstance(json_view_tree, str):
             logging.info('string leaf.  ending the search.')
             return results
+        '''
+        is the json view tree at a list?
+        iterate over it
+        '''
         if isinstance(json_view_tree, list):
             logging.info('found a list.  searching it.')
             for index, json_list_element in enumerate(json_view_tree):
@@ -103,59 +110,63 @@ class viewtree_search_cli:
                     )
                 )
             return results
+        '''
+        is the json view tree at a dict?
+        iterate over the keys
+        '''
         if isinstance(json_view_tree, dict):
             logging.info('found a dictionary.  searching it.')
-            for json_key_value in json_view_tree.keys():
-                if isinstance(json_view_tree[json_key_value], dict) or \
-                        (
-                                json_key_value != 'classNames' and
-                                isinstance(
-                                    json_view_tree[json_key_value],
-                                    list
-                                )
+            for current_json_key in json_view_tree.keys():
+                '''
+                let's see if the value of the json_key
+                warrants further recursion
+                '''
+                current_json_value = json_view_tree[current_json_key]
+                '''
+                if it is a dict or a list which is not for key 'classNames'
+                it does
+                '''
+                if (current_json_key in self.recursable_tags) and \
+                        (isinstance(current_json_value, dict) or
+                         (
+                                current_json_key != 'classNames' and
+                                isinstance(current_json_value, list)
+                        )
                         ):
-                    if json_key_value in self.recursable_tags:
-                        logging.info(
-                            str(
-                                type(
-                                    json_view_tree[json_key_value]
-                                )
-                            ) + str(
-                                json_view_tree[json_key_value]
-                            )
+                    log_message = 'recursing into ' + str(type(
+                        current_json_value)) + str(current_json_value)
+                    logging.info(log_message)
+                    results.extend(
+                        self.viewtree_search(
+                            current_json_value,
+                            local_search_commands,
+                            local_search_hits,
+                            halt_on_match=halt_on_match,
+                            debug_mode=debug_mode,
+                            level=level+1
                         )
-                        logging.info('calling')
-                        results.extend(
-                            self.viewtree_search(
-                                json_view_tree[json_key_value],
-                                local_search_commands,
-                                local_search_hits,
-                                halt_on_match=halt_on_match,
-                                debug_mode=debug_mode,
-                                level=level+1
-                            )
-                        )
+                    )
                 else:
                     for command_index, command \
                             in enumerate(local_search_commands):
                         if (
                                 (
                                         command.startswith('#') and
-                                        (json_key_value == 'identifier') and
-                                        (json_view_tree[json_key_value] ==
+                                        (current_json_key == 'identifier') and
+                                        (json_view_tree[current_json_key] ==
                                          command[1:])
                                 ) or
                                 (
                                         command.startswith('.') and
-                                        (json_key_value == 'classNames') and
+                                        (current_json_key == 'classNames') and
                                         (command[1:] in
-                                         json_view_tree[json_key_value])
+                                         json_view_tree[current_json_key])
                                 ) or
                                 (
                                         not command.startswith('#') and
                                         not command.startswith('.') and
-                                        (json_key_value == 'class') and
-                                        (json_view_tree[json_key_value] ==
+                                        (current_json_key == 'class') and
+                                        (json_view_tree[current_json_key] ==
                                          command[0:])
                                 )
                         ):
