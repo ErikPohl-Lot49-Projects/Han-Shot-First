@@ -25,6 +25,7 @@ Selectors handled now include:
 * A compound selector will match portions of the ViewTree simultaneously matched by all selectors in the compound selector with no regard to distance between selectors and with no implied combinators other than that all selectors must be engaged at the same time.
 * A compound selector match will not short-circuit further descendent searches for other compound selector matches deeper in the ViewTree.  
 * Output of the lowest-most class in the ViewTree JSON which satisfies the selector match (like a CSS match) is satisfactory.
+* I know there are great, almost-standard Python libraries out there which could have made my work cleaner and easier (ahem, pytest, requests, even parameterized).  Had I searched PyPi, I might have found specific modules which could have made this work simpler.  *My assumption was that for this effort I'd use only standard library modules.*
   
 # Up Next
 - [ ] Attempt complex selectors/selector chaining
@@ -91,16 +92,15 @@ Here is a generic list of standards which are applied when preparing a build.
   - [x] Would it benefit from a results page with stats to demonstrate accurate and complete results?
   - [x] How do I want to manage output to stdout, stderr, file, etc?
   - [x] How do comments and outputs help and assist one another without being redundant?
-- [ ] Actual docstring comments at all levels of the code.
+- [x] Actual docstring comments at all levels of the code.
 - [x] Linting the code for PEP 8 standardization like PEP8 or Applying a PEP formatter to the code like Project Black.
-- [ ] Requirements documents, user-facing documents and presentations, and other documents consistent with Agile User Stories to add value.
+- [x] Requirements documents, user-facing documents and presentations, and other documents consistent with Agile User Stories to add value.
 - [x] Commit statements which facilitate an understanding of code history.
 - [x] Readme.md pages with more interesting usage of markdown which tell a code narrative. 
 - [ ] For custom classes, create dunders as appropriate
 - [ ] Make good decisions relating to
   - [ ] Exceptions versus return values
   - [ ] Using idiomatic Python versus clarity of code
-  - [ ] Extend this list
   - [ ] Having functions return values -- as a default-- have a good reason not to
 
 # Trivia
