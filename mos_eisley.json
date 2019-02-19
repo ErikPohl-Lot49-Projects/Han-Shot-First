@@ -4,21 +4,21 @@
     {
       "class": "StackView",
       "classNames": [
-        "container"
+        "containerx"
       ],
       "subviews": [
         {
           "class": "StackView",
           "classNames": [
             "columns",
-            "container"
+            "containerx"
           ],
           "subviews": [
             {
-              "class": "StackView",
+              "class": "StackViewx",
               "classNames": [
                 "column",
-                "container"
+                "containerx"
               ],
               "subviews": [
                 {
@@ -50,7 +50,7 @@
                           }
                         },
                         "control": {
-                          "class": "CvarCheckbox",
+                          "class": "Hello1",
                           "var": "r_allow_high_dpi"
                         }
                       },
@@ -169,7 +169,7 @@
               "class": "StackView",
               "classNames": [
                 "column",
-                "container"
+                "containerx"
               ],
               "subviews": [
                 {
@@ -302,7 +302,7 @@
               "class": "StackView",
               "classNames": [
                 "column",
-                "container"
+                "containerx"
               ],
               "subviews": [
                 {
@@ -378,7 +378,7 @@
                           }
                         },
                         "control": {
-                          "class": "CvarCheckbox",
+                          "class": "Hello2",
                           "var": "s_reverse"
                         }
                       }
@@ -415,7 +415,7 @@
                           }
                         },
                         "control": {
-                          "class": "CvarCheckbox",
+                          "class": "Hello3",
                           "var": "cl_download_maps"
                         }
                       },
@@ -427,7 +427,7 @@
                           }
                         },
                         "control": {
-                          "class": "CvarCheckbox",
+                          "class": "Hello4",
                           "var": "cl_download_models"
                         }
                       },
@@ -439,7 +439,7 @@
                           }
                         },
                         "control": {
-                          "class": "CvarCheckbox",
+                          "class": "Hello5",
                           "var": "cl_draw_net_graph"
                         }
                       }
@@ -459,9 +459,13 @@
           "subviews": [
             {
               "class": "Button",
+          "classNames": [
+            "accessoryView",
+            "container"
+          ],
               "identifier": "apply",
               "title": {
-                "text": "Apply"
+                "text": "Applyapply"
               }
             }
           ]
