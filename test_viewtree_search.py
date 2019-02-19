@@ -1,6 +1,5 @@
 from unittest import TestCase
-from viewtree_search import viewtree_search
-from viewtree_search_cli import viewtree_search_cli
+from viewtree_search_cli import viewtree_search_cli  
 from json import load
 from contextlib import redirect_stdout
 import io
@@ -82,20 +81,21 @@ class TestCases(TestCase):
             }
         ]
         output_redirect = io.StringIO()
+        failed_cases = []
         with redirect_stdout(output_redirect):
-            viewtree_search_object = viewtree_search_cli()
+            viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
             for test_case in test_cases:
                 with open(test_case['case_file'], 'r') as test_file_handle:
                     viewtree_search_object.json_source = load(test_file_handle)
-                test_hits = [0]*len(test_case['case_search_commands'])
-                self.assertEqual(
-                    len(
-                        viewtree_search_object.viewtree_search(
-                            viewtree_search_object.json_source,
-                            test_case['case_search_commands'],
-                            test_hits,
-                            halt_on_match=False
-                        )
-                    ),
-                    test_case['case_count']
-                )
+                    test_hits = [0]*len(test_case['case_search_commands'])
+                    self.assertEqual(
+                        len(
+                            viewtree_search_object.viewtree_search(
+                                viewtree_search_object.json_source,
+                                test_case['case_search_commands'],
+                                test_hits,
+                                halt_on_match=False
+                            )
+                        ),
+                        test_case['case_count']
+                    )
