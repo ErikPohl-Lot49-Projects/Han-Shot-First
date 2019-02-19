@@ -325,6 +325,11 @@ class viewtree_search_cli:
                 self.print_help()
             elif command_string.lower() == 'exit':
                 self._attempt_cli_exit()
+            elif command_string.lower() == 'easter egg' \
+                    or command_string.lower() == 'uuddlrlrba':
+                print("Obi-Wan: Mos Eisley spaceport. "
+                      "You will never find a more wretched hive "
+                      "of scum and villainy. We must be cautious.")
             elif command_string.lower() == 'source':
                 print(self.json_source) \
                     if self.json_source \
