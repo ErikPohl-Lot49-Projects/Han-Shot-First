@@ -116,7 +116,7 @@ class viewtree_search_cli:
         '''
         if isinstance(json_view_tree, dict):
             logging.info('found a dictionary.  searching it.')
-            for current_json_key in json_view_tree.keys():
+            for current_json_key in json_view_tree:
                 '''
                 let's see if the value of the json_key
                 warrants further recursion
@@ -172,7 +172,7 @@ class viewtree_search_cli:
                                         not command.startswith('#') and
                                         not command.startswith('.') and
                                         (current_json_key == 'class') and
-                                        (current_json_value  ==
+                                        (current_json_value ==
                                          command[0:])
                                 )
                         ):
