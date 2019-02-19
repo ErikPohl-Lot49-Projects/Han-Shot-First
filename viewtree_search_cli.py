@@ -159,20 +159,20 @@ class viewtree_search_cli:
                                 (
                                         command.startswith('#') and
                                         (current_json_key == 'identifier') and
-                                        (json_view_tree[current_json_key] ==
+                                        (current_json_value ==
                                          command[1:])
                                 ) or
                                 (
                                         command.startswith('.') and
                                         (current_json_key == 'classNames') and
                                         (command[1:] in
-                                         json_view_tree[current_json_key])
+                                         current_json_value)
                                 ) or
                                 (
                                         not command.startswith('#') and
                                         not command.startswith('.') and
                                         (current_json_key == 'class') and
-                                        (json_view_tree[current_json_key] ==
+                                        (current_json_value  ==
                                          command[0:])
                                 )
                         ):
