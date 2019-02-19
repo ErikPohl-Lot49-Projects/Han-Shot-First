@@ -331,7 +331,7 @@ class viewtree_search_cli:
                       "You will never find a more wretched hive "
                       "of scum and villainy. We must be cautious.")
             elif command_string.lower() == 'source':
-                print(self.json_source) \
+                print(dumps(self.json_source, indent=4))\
                     if self.json_source \
                     else print("No JSON source has been loaded "
                                "for viewtree searching")
