@@ -1,8 +1,23 @@
+#!/usr/bin/env python
+
+'''Regression tests for use when refactoring viewtree_search_cli
+and to prove functionality works
+'''
+
 from unittest import TestCase
-from viewtree_search_cli import viewtree_search_cli  
 from json import load
 from contextlib import redirect_stdout
 import io
+from viewtree_search_cli import viewtree_search_cli  
+
+__author__ = "Erik Pohl"
+__copyright__ = "None"
+__credits__ = ["Erik Pohl"]
+__license__ = "MIT"
+__version__ = "1.0.0"
+__maintainer__ = "Erik Pohl"
+__email__ = "erik.pohl.444@gmail.com"
+__status__ = "Code Review"
 
 
 class TestCases(TestCase):
@@ -81,7 +96,6 @@ class TestCases(TestCase):
             }
         ]
         output_redirect = io.StringIO()
-        failed_cases = []
         with redirect_stdout(output_redirect):
             viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
             for test_case in test_cases:
