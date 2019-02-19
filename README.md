@@ -1,6 +1,6 @@
 # ViewTree Search CLI
 
-ViewTree Search CLI is a CLI which allows a user to load ViewTree JSON scripts from files or from URLs and then perform selector searches on it.
+ViewTree Search CLI is a command-line interface which allows a user to load ViewTree JSON scripts from files or from URLs and then perform selector searches on it.
 
 **_What is a ViewTree?_**
 A ViewTree is a hierarchical JSON with attributes which describe a view.
@@ -32,11 +32,11 @@ Selectors handled now include:
 
 ## Getting Started
 
-1. Retrieve files from the Han-Shot-First repo.
+1. Retrieve files from the Han-Shot-First repo.  
 2. Perform the installation steps in the Installing section of this readme.
 3. Start the CLI by executing the following command:
 ```
-viewtree_search_cli_demo_usage.py
+python viewtree_search_cli_demo_usage.py
 ```
 
 ### Prerequisites
