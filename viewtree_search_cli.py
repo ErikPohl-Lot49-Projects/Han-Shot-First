@@ -1,9 +1,24 @@
+#!/usr/bin/env python
+
+'''
+Provides a CLI for a user to load JSON from files
+or URLs and then search it with selectors
+'''
+    
 import logging
 import sys
 import re
 import urllib.request
 from json import load, loads, dumps
 
+__author__ = "Erik Pohl"
+__copyright__ = "None"
+__credits__ = ["Erik Pohl"]
+__license__ = "MIT"
+__version__ = "1.0.0"
+__maintainer__ = "Erik Pohl"
+__email__ = "erik.pohl.444@gmail.com"
+__status__ = "Code Review"
 
 class viewtree_search_cli:
     '''
