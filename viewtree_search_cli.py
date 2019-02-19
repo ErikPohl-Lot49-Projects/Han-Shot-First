@@ -2,7 +2,7 @@ import logging
 import sys
 import re
 import urllib.request
-from json import load, loads
+from json import load, loads, dumps
 
 
 class viewtree_search_cli:
@@ -30,7 +30,7 @@ class viewtree_search_cli:
 
         self.json_source = None
         self.debug_mode = False
-        self.check_hits = lambda hits: all(
+        self.check_full_search_match = lambda hits: all(
             [hit_or_miss for hit_or_miss in hits]
         )
         self.recursable_tags = ('subviews', 'contentView', 'input', 'control')
@@ -54,12 +54,14 @@ class viewtree_search_cli:
         self._set_logging()
         logging.info('string command: ' + str(string_command))
         command_list = [string_command]
-        a = re.split("([\.#])", string_command)
-        logging.info(a)
-        logging.info(set(string_command).intersection(self.delims))
-        if set(string_command).intersection(self.delims):
-            command_list = a[0:1] + [''.join(i) for i in list(
-                zip(a[1::2], a[2::2]))]
+        split_list = re.split("([\.#])", string_command)
+        logging.info(split_list)
+        logging.info(set(string_command[1:]).intersection(self.delims))
+        if set(string_command[1:]).intersection(self.delims):
+            command_list = [''.join(prefix_pair) for prefix_pair in list(
+                    zip(split_list[1::2], split_list[2::2]))]
+            if string_command[0] not in self.delims:
+                command_list = split_list[0:1] + command_list
         logging.info('command list' + str(command_list))
         return command_list
 
@@ -86,13 +88,13 @@ class viewtree_search_cli:
                      str(json_view_tree)
                      )
         '''
-        are we at a leaf?
+        are we at a string leaf?
         '''
         if isinstance(json_view_tree, str):
             logging.info('string leaf.  ending the search.')
             return results
         '''
-        is the json view tree at a list?
+        is the json_view_tree at a list?
         iterate over it
         '''
         if isinstance(json_view_tree, list):
@@ -123,16 +125,11 @@ class viewtree_search_cli:
                 '''
                 current_json_value = json_view_tree[current_json_key]
                 '''
-                if it is a dict or a list which is not for key 'classNames'
-                it does and it must be a recursable tag
+                if the key is a recursable tag (dict, list)
+                which is not classNames
                 '''
                 if (current_json_key in self.recursable_tags) and \
-                        (isinstance(current_json_value, dict) or
-                         (
-                                current_json_key != 'classNames' and
-                                isinstance(current_json_value, list)
-                        )
-                        ):
+                        current_json_key != 'classNames':
                     log_message = 'recursing into ' + str(type(
                         current_json_value)) + str(current_json_value)
                     logging.info(log_message)
@@ -153,8 +150,8 @@ class viewtree_search_cli:
                     check it for matches with
                     the selectors
                     '''
-                    for command_index, command \
-                            in enumerate(local_search_commands):
+                    for command_index, command in \
+                            enumerate(local_search_commands):
                         if (
                                 (
                                         command.startswith('#') and
@@ -177,8 +174,8 @@ class viewtree_search_cli:
                                 )
                         ):
                             local_search_hits[command_index] += 1
-                            if self.check_hits(local_search_hits):
-                                result = str(json_view_tree)
+                            if self.check_full_search_match(local_search_hits):
+                                result = json_view_tree
                                 results.append(result)
                                 if halt_on_match:
                                     return results
@@ -189,8 +186,11 @@ class viewtree_search_cli:
         format the output of
         the search results
         '''
-        for result in results:
-            print(result)
+        for finding_number, result in enumerate(results):
+            print('Finding {}'.format(finding_number+1))
+            print('-' * 80)
+            print(dumps(result, indent=4))
+            print('-'*80)
         print("Found 1 entry") \
             if len(results) == 1\
             else print("Found {} entries".format(len(results)))
@@ -205,7 +205,7 @@ class viewtree_search_cli:
             command_hits,
             debug_mode=self.debug_mode
         )
-        self.output_results(list(set(search_results)))
+        self.output_results(list(search_results))
         return search_results
 
     def _json_source_status(self):
@@ -239,7 +239,7 @@ class viewtree_search_cli:
                 self.json_source = load(json_file_handle)
             print('Loaded source from ', json_file_name)
             if self.debug_mode:
-                print('Source: ', self.json_source)
+                print('Source: ', dumps(self.json_source, indent=4))
             success = True
         except:
             print("Error loading file: ", json_file_name)
@@ -285,7 +285,7 @@ class viewtree_search_cli:
             self.json_source = loads(data.decode(encoding))
             print('Loaded source from ', command_url)
             if self.debug_mode:
-                print('Source: ', self.json_source)
+                print('Source: ', dumps(self.json_source, indent=4))
             success = True
         except:
             print("Error loading URL ", command_url)
@@ -325,8 +325,8 @@ class viewtree_search_cli:
                 self.print_help()
             elif command_string.lower() == 'exit':
                 self._attempt_cli_exit()
-            elif command_string.lower() == 'easter egg' \
-                    or command_string.lower() == 'uuddlrlrba':
+            elif command_string.lower() in (
+                    'easter egg', 'uuddlrlrba'):
                 print("Obi-Wan: Mos Eisley spaceport. "
                       "You will never find a more wretched hive "
                       "of scum and villainy. We must be cautious.")
