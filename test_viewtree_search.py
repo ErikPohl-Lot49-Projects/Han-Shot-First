@@ -113,3 +113,17 @@ class TestCases(TestCase):
                         ),
                         test_case['case_count']
                     )
+                    
+    def test_json_source_status(self):
+        viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
+        self.assertEqual(viewtree_search_object._json_source_status(), False)
+        viewtree_search_object.json_source = 'x'
+        self.assertEqual(viewtree_search_object._json_source_status(), True)
+
+    def test_split_string_command(self):
+        viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
+        self.assertEqual(viewtree_search_object._split_string_command('Input'), ['Input'])
+        self.assertEqual(viewtree_search_object._split_string_command('Input#identifier'), ['Input', '#identifier'])
+        self.assertEqual(viewtree_search_object._split_string_command('Input#identifier.container'), ['Input', '#identifier', '.container'])
+        self.assertEqual(viewtree_search_object._split_string_command('#identifier'), ['#identifier'])
+        self.assertEqual(viewtree_search_object._split_string_command('#identifier.container'), ['#identifier', '.container'])
