@@ -98,8 +98,8 @@ class TestCases(TestCase):
                 'case_name': 'before combinator, compound',
                 'case_file':
                     self.mos_eisley_test_file,
-                'case_search_commands': ['Ponda_Baba'],
-                'case_count': 2
+                'case_search_commands': ['Ponda_Baba', '.Doctor_Evazan'],
+                'case_count': 3 # this is a case I'd like to discuss
             }
         ]
         output_redirect = io.StringIO()
