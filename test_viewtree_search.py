@@ -93,6 +93,13 @@ class TestCases(TestCase):
                     self.mos_eisley_test_file,
                 'case_search_commands': ['StackView', '.container'],
                 'case_count': 2
+            },
+            {
+                'case_name': 'before combinator, compound',
+                'case_file':
+                    self.mos_eisley_test_file,
+                'case_search_commands': ['Ponda_Baba'],
+                'case_count': 2
             }
         ]
         output_redirect = io.StringIO()
