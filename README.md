@@ -106,6 +106,7 @@ Here is a generic list of standards which are applied when preparing a build.
 - [x] Commit statements which facilitate an understanding of code history.
 - [x] Readme.md pages with more interesting usage of markdown which tell a code narrative. 
 - [x] For custom classes, create dunders as appropriate
+- [x] Make sure to include standard module comment headers
 - [x] Make good decisions relating to
   - [x] Exceptions versus return values
   - [x] Using idiomatic Python versus clarity of code
