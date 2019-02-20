@@ -29,35 +29,35 @@ class TestCases(TestCase):
         self.mos_eisley_test_file = 'mos_eisley.json'
         test_cases = [
             {
-                'case_name': 'test_case1',
+                'case_name': 'simple selector case with user story results for class : 26 count',
                 'case_file':
                     self.modal_nodes_test_file,
                 'case_search_commands': ["Input"],
                 'case_count': 26
             },
             {
-                'case_name': 'test_case2',
+                'case_name': 'simple selector case: videoMode identifier',
                 'case_file':
                     self.modal_nodes_test_file,
                 'case_search_commands': ["#videoMode"],
                 'case_count': 1
             },
             {
-                'case_name': 'test_case3',
+                'case_name': 'simple selector case: rate identifier',
                 'case_file':
                     self.modal_nodes_test_file,
                 'case_search_commands': ["#rate"],
                 'case_count': 1
             },
             {
-                'case_name': 'test_case4',
+                'case_name': 'simple selector case: supersample identifier',
                 'case_file':
                     self.modal_nodes_test_file,
                 'case_search_commands': ["#supersample"],
                 'case_count': 1
             },
             {
-                'case_name': 'test_case5',
+                'case_name': 'simple selector case: classNames container',
                 'case_file':
                     self.modal_nodes_test_file,
                 'case_search_commands': [".container"],
