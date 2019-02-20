@@ -69,7 +69,7 @@ class viewtree_search_cli:
         self._set_logging()
         logging.info('string command: ' + str(string_command))
         command_list = [string_command]
-        split_list = re.split("([\.#])", string_command)
+        split_list = re.split(r"([\.#])", string_command)
         logging.info(split_list)
         logging.info(set(string_command[1:]).intersection(self.delims))
         if set(string_command[1:]).intersection(self.delims):
