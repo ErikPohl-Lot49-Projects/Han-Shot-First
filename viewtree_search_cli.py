@@ -55,6 +55,11 @@ class viewtree_search_cli:
         self._output_welcome_message()
 
     def _set_logging(self):
+        '''
+        set logging on or off for info 
+        logging based on debug_mode
+        method
+        '''
         logging.disable(logging.NOTSET) \
             if self.debug_mode \
             else logging.disable(logging.INFO)
