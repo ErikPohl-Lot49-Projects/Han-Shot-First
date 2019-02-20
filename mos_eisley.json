@@ -24,15 +24,15 @@
       ]
     },
     {
-      "class": "Ponda Baba",
+      "class": "Ponda_Baba",
       "classNames": [
-        "Doctor Evazan"
+        "Doctor_Evazan"
       ],
       "subviews": [
 {
-      "class": "Ponda Baba",
+      "class": "Ponda_Baba",
       "classNames": [
-        "Doctor Evazan"
+        "Doctor_Evazan"
       ]
 }
      ]
