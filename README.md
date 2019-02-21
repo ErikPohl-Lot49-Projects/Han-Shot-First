@@ -117,13 +117,13 @@ Here is a generic list of standards which are applied when preparing a build.
 
 * The title of this repo refers to a controversy introduced in the 1997 Special Edition Star Wars rerelease of Star Wars IV: A New Hope.
 
-In the version of Star Wars IV: A New Hope which I watched in a drive-in theater in Anderson, SC with my family in 1977, Han Solo, when cornered by a bounty hunter in the Mos Eisley cantina, understood his best and only option to avoid death was to use his blaster to eliminate Greedo.  It was self-defense.  It didn't make Han a bad antihero, just street smart: and it defined him clearly as an antihero when juxtaposed against Obi Wan Kenobi and the ways of a Jedi.
+In the version of Star Wars IV: A New Hope which I watched with my familly in an Anderson, SC drive-in theater in 1977, Han Solo, when cornered by a bounty hunter in the Mos Eisley cantina, understood his best and only option to avoid an untimely end was to use his blaster to eliminate the threat.  It was self-defense, and would not have ended well had he not shot Greedo.  It showed Han was a street smart anti-hero: and it defined the beginning of Han's arc starkly when juxtaposed against Obi Wan Kenobi and the ways of a Jedi.
 
 ![What Would Han Solo Do?](https://github.com/ErikPohl-Lot49-Projects/Han-Shot-First/blob/master/media/What_would_Han_Solo_do__by_mjt423.jpg "What Would Han Solo Do?")
 
-* You will find garindan in the Mos Eisley test file.  This was another bounty hunter following Han in the Mos Eisley cantina.
+* You will find Garindan in the Mos Eisley test file.  This was another bounty hunter following Han in the Mos Eisley cantina.
 
-* Mos Eisley, the name of one of the test files, is a city on Tatooine which contains a cantina in which some critical exposition, or rising action, takes place in Star Wars IV: A New Hope.
+* Mos Eisley, the name of one of the test files, is a city on Tatooine which contains a cantina in which some critical exposition (rising action for the English major nerds out there) takes place in Star Wars IV: A New Hope.
 
 * I took the liberty of renaming SystemViewController.json to the_modal_nodes.json.  This is a reference to the band in the cantina scene in Star Wars IV: A New Hope.
 
