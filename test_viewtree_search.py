@@ -99,7 +99,7 @@ class TestCases(TestCase):
                 'case_file':
                     self.mos_eisley_test_file,
                 'case_search_commands': ['Ponda_Baba', '.Doctor_Evazan'],
-                'case_count': 3 # this is a case I'd like to discuss
+                'case_count': 2 # this is a case I'd like to discuss
             }
         ]
         output_redirect = io.StringIO()
