@@ -92,6 +92,7 @@ class viewtree_search_cli:
             search_hits,
             halt_on_match=False,
             debug_mode=False,
+            allow_double_matching=False,
             level=0
     ):
         '''
@@ -128,6 +129,7 @@ class viewtree_search_cli:
                         local_search_hits,
                         halt_on_match=halt_on_match,
                         debug_mode=debug_mode,
+                        allow_double_matching=allow_double_matching,
                         level=level+1
                     )
                 )
@@ -138,6 +140,7 @@ class viewtree_search_cli:
         '''
         if isinstance(json_view_tree, dict):
             logging.info('found a dictionary.  searching it.')
+            match=False
             for current_json_key in json_view_tree:
                 '''
                 let's see if the value of the json_key
@@ -160,6 +163,7 @@ class viewtree_search_cli:
                             local_search_hits,
                             halt_on_match=halt_on_match,
                             debug_mode=debug_mode,
+                            allow_double_matching=allow_double_matching,
                             level=level+1
                         )
                     )
@@ -170,35 +174,37 @@ class viewtree_search_cli:
                     check it for matches with
                     the selectors
                     '''
-                    for command_index, command in \
-                            enumerate(local_search_commands):
-                        if (
-                                (
-                                        command.startswith('#') and
-                                        (current_json_key == 'identifier') and
-                                        (current_json_value ==
-                                         command[1:])
-                                ) or
-                                (
-                                        command.startswith('.') and
-                                        (current_json_key == 'classNames') and
-                                        (command[1:] in
-                                         current_json_value)
-                                ) or
-                                (
-                                        not command.startswith('#') and
-                                        not command.startswith('.') and
-                                        (current_json_key == 'class') and
-                                        (current_json_value ==
-                                         command[0:])
-                                )
-                        ):
-                            local_search_hits[command_index] += 1
-                            if self.check_full_search_match(local_search_hits):
-                                result = json_view_tree
-                                results.append(result)
-                                if halt_on_match:
-                                    return results
+                    if (allow_double_matching) or (not match):
+                        for command_index, command in \
+                                enumerate(local_search_commands):
+                            if (
+                                    (
+                                            command.startswith('#') and
+                                            (current_json_key == 'identifier') and
+                                            (current_json_value ==
+                                             command[1:])
+                                    ) or
+                                    (
+                                            command.startswith('.') and
+                                            (current_json_key == 'classNames') and
+                                            (command[1:] in
+                                             current_json_value)
+                                    ) or
+                                    (
+                                            not command.startswith('#') and
+                                            not command.startswith('.') and
+                                            (current_json_key == 'class') and
+                                            (current_json_value ==
+                                             command[0:])
+                                    )
+                            ):
+                                local_search_hits[command_index] += 1
+                                if self.check_full_search_match(local_search_hits):
+                                    result = json_view_tree
+                                    match = True
+                                    results.append(result)
+                                    if halt_on_match:
+                                        return results
         return results
 
     def output_results(self, results):
