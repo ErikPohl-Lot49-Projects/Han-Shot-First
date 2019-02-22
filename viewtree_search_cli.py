@@ -290,19 +290,33 @@ class viewtree_search_cli:
         print(
             "ViewTree Search is a CLI which allows you to load JSON "
             "from a file or from a URL and search it for various selectors.")
-        print("? toggles debug mode")
-        print("help-- outputs the help instructions [these]")
-        print("exit-- exits the CLI")
-        print("source-- outputs the current JSON source "
-              "available for viewtree searching")
-        print("![file name]-- allows you to load a file of "
-              "JSON named file name-- don't use the brackets.  ")
-        print("@[URL]-- allows you to load a URL of JSON "
-              "using the specified URL-- don't use the brackets.  ")
-        print("[Simple selector]-- Searches loaded JSON "
-              "using the simple selector")
-        print("[Compound selector]-- Searches loaded "
-              "JSON using the compound selector")
+        print("?                   toggles debug mode")
+        print("help                outputs the help instructions [these]")
+        print("exit                exits the CLI")
+        print("source              outputs the current JSON source ")
+        print("                    available for viewtree searching")
+        print("![file name]        allows you to load a file of ")
+        print("                    JSON named file name-- don't use the brackets.")
+        print("@[URL]              allows you to load a URL of JSON ")
+        print("                    using the specified URL-- don't use the brackets.")
+        print("[Simple selector]   Searches loaded JSON ")
+        print("                    using a simple selector")
+        print(80*'-')
+        print('   A simple selector can be one of the following:')
+        print('   * Begins with a #-- an identifier selector. '
+              'e.g. #myidentifier')
+        print('   * Begins with a .-- a classNames selector.  '
+              'e.g. .oneclassname')
+        print('   * Does not begin with a . or a # -- a class '
+              'selector.  e.g. AClass')
+        print(80*'-')
+        print('[Compound selector]  Searches loaded '
+              'JSON using a compound selector')
+        print(80*'-')
+        print('   A compound selector starts with 0 or 1 class selectors ') 
+        print('   followed by 0 or many of a mix of identifier selectors')
+        print('   and classNames selectors')
+        print(80*'-')
         return True
 
     def load_json_from_url(self,
