@@ -208,16 +208,23 @@ class viewtree_search_cli:
                                         return results
         return results
 
+    def _output_one_result(self, finding_number, result):
+            print('Finding {}'.format(finding_number+1))
+            print('-' * 80)
+            print(dumps(result, indent=4))
+            print('-'*80)
+            return 1
+        
     def output_results(self, results):
         '''
         format the output of
         the search results
         '''
-        for finding_number, result in enumerate(results):
-            print('Finding {}'.format(finding_number+1))
-            print('-' * 80)
-            print(dumps(result, indent=4))
-            print('-'*80)
+        [
+            self._output_one_result(finding_number, result)
+            for finding_number, result
+            in enumerate(results)
+         ]
         print("Found 1 entry") \
             if len(results) == 1\
             else print("Found {} entries".format(len(results)))
