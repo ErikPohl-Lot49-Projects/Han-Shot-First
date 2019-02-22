@@ -69,7 +69,7 @@ Check out this [example transcript](https://github.com/ErikPohl-Lot49-Projects/H
 
 Tests have been batched in one Python module.  To execute it, run this command from the command line in the folder in which the files are installed:
 ```
-test_viewtree_search.py
+python -m unittest -v test_viewtree_search.py
 ```
 
 ## Contributing
