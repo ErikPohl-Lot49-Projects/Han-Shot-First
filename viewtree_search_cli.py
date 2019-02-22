@@ -153,7 +153,7 @@ class viewtree_search_cli:
                 which is not classNames
                 '''
                 if (current_json_key in self.recursable_tags) and \
-                        current_json_key != 'classNames':
+                        current_json_key not in self.selector_keys:
                     log_message = 'recursing into ' + str(type(
                         current_json_value)) + str(current_json_value)
                     logging.info(log_message)
@@ -202,9 +202,8 @@ class viewtree_search_cli:
                             ):
                                 local_search_hits[command_index] += 1
                                 if self.check_full_search_match(local_search_hits):
-                                    result = json_view_tree
                                     match = True
-                                    results.append(result)
+                                    results.append(json_view_tree)
                                     if halt_on_match:
                                         return results
         return results
