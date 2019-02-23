@@ -111,33 +111,13 @@ class viewtree_search_cli:
                      str(json_view_tree)
                      )
         '''
-        is the json_view_tree at a list?
-        iterate over it
-        '''
-        if isinstance(json_view_tree, list):
-            logging.info('found a list.  searching it.')
-            for index, json_list_element in enumerate(json_view_tree):
-                logging.info('recursing list item [ ' + str(index))
-                results.extend(
-                    self.viewtree_search(
-                        json_list_element,
-                        local_selectors,
-                        local_search_hits,
-                        halt_on_match=halt_on_match,
-                        debug_mode=debug_mode,
-                        allow_double_matching=allow_double_matching,
-                        level=level + 1
-                    )
-                )
-            return results
-        '''
         is the json view tree at a dict?
         iterate over the keys
         '''
-        if isinstance(json_view_tree, dict):
-            logging.info('found a dictionary.  searching it.')
+        try:
             match = False
-            for current_json_key in json_view_tree:
+            for current_json_key in json_view_tree.keys():
+                logging.info('found a dictionary.  searching it.')
                 '''
                 let's see if the value of the json_key
                 warrants further recursion
@@ -201,6 +181,31 @@ class viewtree_search_cli:
                                     results.append(json_view_tree)
                                     if halt_on_match:
                                         return results
+        except:
+            try:
+                '''
+                is the json_view_tree at a list?
+                iterate over it
+                '''
+                for index, json_list_element in enumerate(json_view_tree):
+                    logging.info('found a list [not going to be a tuple or set].  searching it.')
+                    logging.info('recursing list item [ ' + str(index))
+                    results.extend(
+                        self.viewtree_search(
+                            json_list_element,
+                            local_selectors,
+                            local_search_hits,
+                            halt_on_match=halt_on_match,
+                            debug_mode=debug_mode,
+                            allow_double_matching=allow_double_matching,
+                            level=level + 1
+                        )
+                    )
+            except:
+                '''
+                not a dict or list
+                '''
+                pass
         return results
 
     def _output_one_result(self, finding_number, result):
