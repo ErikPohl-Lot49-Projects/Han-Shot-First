@@ -46,13 +46,14 @@ class viewtree_search_cli:
 
         self.json_source = None
         self.debug_mode = False
-        self.check_full_search_match = lambda hits: all(
+        self._check_full_search_match = lambda hits: all(
             [hit_or_miss for hit_or_miss in hits]
         )
-        self.recursable_tags = ('subviews', 'contentView', 'input', 'control')
-        self.selector_keys = ('identifier', 'classNames', 'class')
-        self.delims = ('#', '.', '!', '@')
-        self.combinators = (' ', '>', '+', '~')
+        self._recursable_tags = ('subviews', 'contentView', 'input', 'control')
+        self._selector_keys = ('identifier', 'classNames', 'class')
+        self._delims = ('#', '.', '!', '@')
+        self._combinators = (' ', '>', '+', '~')
+        self._easter_eggs = ('easter egg', 'uuddlrlrba')
         logging.basicConfig(stream=sys.stderr, level=logging.INFO)
         self._output_welcome_message()
 
@@ -78,11 +79,11 @@ class viewtree_search_cli:
         command_list = [string_command]
         split_list = re.split(r"([\.#])", string_command)
         logging.info(split_list)
-        logging.info(set(string_command[1:]).intersection(self.delims))
-        if set(string_command[1:]).intersection(self.delims):
+        logging.info(set(string_command[1:]).intersection(self._delims))
+        if set(string_command[1:]).intersection(self._delims):
             command_list = [''.join(prefix_pair) for prefix_pair in list(
                 zip(split_list[1::2], split_list[2::2]))]
-            if string_command[0] not in self.delims:
+            if string_command[0] not in self._delims:
                 command_list = split_list[0:1] + command_list
         logging.info('command list' + str(command_list))
         return command_list
@@ -127,8 +128,8 @@ class viewtree_search_cli:
                 if the key is a recursable tag (dict, list)
                 which is not classNames
                 '''
-                if (current_json_key in self.recursable_tags) and \
-                        current_json_key not in self.selector_keys:
+                if (current_json_key in self._recursable_tags) and \
+                        current_json_key not in self._selector_keys:
                     log_message = 'recursing into ' + str(type(
                         current_json_value)) + str(current_json_value)
                     logging.info(log_message)
@@ -151,7 +152,7 @@ class viewtree_search_cli:
                     the selectors
                     '''
                     if (allow_double_matching) or (not match) and \
-                            (current_json_key in self.selector_keys):
+                            (current_json_key in self._selector_keys):
                         for selector_index, selector in \
                                 enumerate(local_selectors):
                             if (
@@ -178,7 +179,7 @@ class viewtree_search_cli:
                                     )
                             ):
                                 local_search_hits[selector_index] += 1
-                                if self.check_full_search_match(
+                                if self._check_full_search_match(
                                         local_search_hits):
                                     match = True
                                     results.append(json_view_tree)
@@ -213,7 +214,7 @@ class viewtree_search_cli:
         return results
 
     def _output_one_result(self, finding_number, result):
-        print('Finding {}'.format(finding_number + 1))
+        print('Match #{}'.format(finding_number + 1))
         print('-' * 80)
         print(dumps(result, indent=4))
         print('-' * 80)
@@ -286,7 +287,7 @@ class viewtree_search_cli:
             success = False
         return success
 
-    def print_help(self):
+    def _print_help(self):
         '''
         Prints the help statement for viewtree_search
         '''
@@ -360,6 +361,19 @@ class viewtree_search_cli:
             self._json_source_status()
         return True
 
+    def _print_easter_egg(self):
+        print("Obi-Wan: Mos Eisley spaceport. "
+              "You will never find a more wretched hive "
+              "of scum and villainy. We must be cautious.")
+        return "Help me, Obi-Wan Kenobi. You're my only hope."
+
+    def _output_json_source(self):
+        print(dumps(self.json_source, indent=4)) \
+            if self.json_source \
+            else print("No JSON source has been loaded "
+                       "for viewtree searching")
+        return self.json_source
+
     def prompt(self):
         '''
         Prompts for command inputs and
@@ -376,19 +390,13 @@ class viewtree_search_cli:
             elif command_string.startswith('@'):
                 self.load_json_from_url(command_string[1:])
             elif command_string.lower() == 'help':
-                self.print_help()
+                self._print_help()
             elif command_string.lower() == 'exit':
                 self._attempt_cli_exit()
-            elif command_string.lower() in (
-                    'easter egg', 'uuddlrlrba'):
-                print("Obi-Wan: Mos Eisley spaceport. "
-                      "You will never find a more wretched hive "
-                      "of scum and villainy. We must be cautious.")
+            elif command_string.lower() in self._easter_eggs:
+                self._print_easter_egg()
             elif command_string.lower() == 'source':
-                print(dumps(self.json_source, indent=4)) \
-                    if self.json_source \
-                    else print("No JSON source has been loaded "
-                               "for viewtree searching")
+                self._output_json_source()
             else:  # this code is used to perform a viewtree
                 # search since all other command options are not in play
                 if not self.json_source:
