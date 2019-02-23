@@ -111,12 +111,6 @@ class viewtree_search_cli:
                      str(json_view_tree)
                      )
         '''
-        are we at a string leaf?
-        '''
-        if isinstance(json_view_tree, str):
-            logging.info('string leaf.  ending the search.')
-            return results
-        '''
         is the json_view_tree at a list?
         iterate over it
         '''
@@ -176,8 +170,8 @@ class viewtree_search_cli:
                     check it for matches with
                     the selectors
                     '''
-                    if (allow_double_matching) or (not match) and (
-                            current_json_key in self.selector_keys):
+                    if (allow_double_matching) or (not match) and \
+                            (current_json_key in self.selector_keys):
                         for selector_index, selector in \
                                 enumerate(local_selectors):
                             if (
