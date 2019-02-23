@@ -4,7 +4,7 @@
 Provides a CLI for a user to load JSON from files
 or URLs and then search it with selectors
 '''
-    
+
 import logging
 import sys
 import re
@@ -19,6 +19,7 @@ __version__ = "1.0.0"
 __maintainer__ = "Erik Pohl"
 __email__ = "erik.pohl.444@gmail.com"
 __status__ = "Code Review"
+
 
 class viewtree_search_cli:
     '''
@@ -57,7 +58,7 @@ class viewtree_search_cli:
 
     def _set_logging(self):
         '''
-        set logging on or off for info 
+        set logging on or off for info
         logging based on debug_mode
         method
         '''
@@ -80,7 +81,7 @@ class viewtree_search_cli:
         logging.info(set(string_command[1:]).intersection(self.delims))
         if set(string_command[1:]).intersection(self.delims):
             command_list = [''.join(prefix_pair) for prefix_pair in list(
-                    zip(split_list[1::2], split_list[2::2]))]
+                zip(split_list[1::2], split_list[2::2]))]
             if string_command[0] not in self.delims:
                 command_list = split_list[0:1] + command_list
         logging.info('command list' + str(command_list))
@@ -89,7 +90,7 @@ class viewtree_search_cli:
     def viewtree_search(
             self,
             json_view_tree,
-            search_commands,
+            selectors,
             search_hits,
             halt_on_match=False,
             debug_mode=False,
@@ -102,7 +103,7 @@ class viewtree_search_cli:
         '''
         self._set_logging()
         logging.info('Level' + str(level))
-        local_search_commands = search_commands[:]
+        local_selectors = selectors[:]
         local_search_hits = search_hits[:]
         results = []
         logging.info('called:' +
@@ -126,12 +127,12 @@ class viewtree_search_cli:
                 results.extend(
                     self.viewtree_search(
                         json_list_element,
-                        local_search_commands,
+                        local_selectors,
                         local_search_hits,
                         halt_on_match=halt_on_match,
                         debug_mode=debug_mode,
                         allow_double_matching=allow_double_matching,
-                        level=level+1
+                        level=level + 1
                     )
                 )
             return results
@@ -141,7 +142,7 @@ class viewtree_search_cli:
         '''
         if isinstance(json_view_tree, dict):
             logging.info('found a dictionary.  searching it.')
-            match=False
+            match = False
             for current_json_key in json_view_tree:
                 '''
                 let's see if the value of the json_key
@@ -160,12 +161,12 @@ class viewtree_search_cli:
                     results.extend(
                         self.viewtree_search(
                             current_json_value,
-                            local_search_commands,
+                            local_selectors,
                             local_search_hits,
                             halt_on_match=halt_on_match,
                             debug_mode=debug_mode,
                             allow_double_matching=allow_double_matching,
-                            level=level+1
+                            level=level + 1
                         )
                     )
                 else:
@@ -176,31 +177,31 @@ class viewtree_search_cli:
                     the selectors
                     '''
                     if (allow_double_matching) or (not match) and (
-                        current_json_key in self.selector_keys):
-                        for command_index, command in \
-                                enumerate(local_search_commands):
+                            current_json_key in self.selector_keys):
+                        for selector_index, selector in \
+                                enumerate(local_selectors):
                             if (
                                     (
-                                            command.startswith('#') and
+                                            selector.startswith('#') and
                                             (current_json_key == 'identifier') and
                                             (current_json_value ==
-                                             command[1:])
+                                             selector[1:])
                                     ) or
                                     (
-                                            command.startswith('.') and
+                                            selector.startswith('.') and
                                             (current_json_key == 'classNames') and
-                                            (command[1:] in
+                                            (selector[1:] in
                                              current_json_value)
                                     ) or
                                     (
-                                            not command.startswith('#') and
-                                            not command.startswith('.') and
+                                            not selector.startswith('#') and
+                                            not selector.startswith('.') and
                                             (current_json_key == 'class') and
                                             (current_json_value ==
-                                             command[0:])
+                                             selector[0:])
                                     )
                             ):
-                                local_search_hits[command_index] += 1
+                                local_search_hits[selector_index] += 1
                                 if self.check_full_search_match(local_search_hits):
                                     match = True
                                     results.append(json_view_tree)
@@ -209,12 +210,12 @@ class viewtree_search_cli:
         return results
 
     def _output_one_result(self, finding_number, result):
-            print('Finding {}'.format(finding_number+1))
-            print('-' * 80)
-            print(dumps(result, indent=4))
-            print('-'*80)
-            return 1
-        
+        print('Finding {}'.format(finding_number + 1))
+        print('-' * 80)
+        print(dumps(result, indent=4))
+        print('-' * 80)
+        return 1
+
     def output_results(self, results):
         '''
         format the output of
@@ -224,15 +225,15 @@ class viewtree_search_cli:
             self._output_one_result(finding_number, result)
             for finding_number, result
             in enumerate(results)
-         ]
+        ]
         print("Found 1 entry") \
-            if len(results) == 1\
+            if len(results) == 1 \
             else print("Found {} entries".format(len(results)))
         return len(results)
 
     def viewtree_search_wrapper(self, command_string):
         command_list = self._split_string_command(command_string)
-        command_hits = len(command_list)*[0]
+        command_hits = len(command_list) * [0]
         search_results = self.viewtree_search(
             self.json_source,
             command_list,
@@ -301,7 +302,7 @@ class viewtree_search_cli:
         print("                    using the specified URL-- don't use the brackets.")
         print("[Simple selector]   Searches loaded JSON ")
         print("                    using a simple selector")
-        print(80*'-')
+        print(80 * '-')
         print('   A simple selector can be one of the following:')
         print('   * Begins with a #-- an identifier selector. '
               'e.g. #myidentifier')
@@ -309,14 +310,14 @@ class viewtree_search_cli:
               'e.g. .oneclassname')
         print('   * Does not begin with a . or a # -- a class '
               'selector.  e.g. AClass')
-        print(80*'-')
+        print(80 * '-')
         print('[Compound selector]  Searches loaded '
               'JSON using a compound selector')
-        print(80*'-')
-        print('   A compound selector starts with 0 or 1 class selectors ') 
+        print(80 * '-')
+        print('   A compound selector starts with 0 or 1 class selectors ')
         print('   followed by 0 or many of a mix of identifier selectors')
         print('   and classNames selectors')
-        print(80*'-')
+        print(80 * '-')
         return True
 
     def load_json_from_url(self,
@@ -379,7 +380,7 @@ class viewtree_search_cli:
                       "You will never find a more wretched hive "
                       "of scum and villainy. We must be cautious.")
             elif command_string.lower() == 'source':
-                print(dumps(self.json_source, indent=4))\
+                print(dumps(self.json_source, indent=4)) \
                     if self.json_source \
                     else print("No JSON source has been loaded "
                                "for viewtree searching")
