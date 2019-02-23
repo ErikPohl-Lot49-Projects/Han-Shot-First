@@ -157,13 +157,15 @@ class viewtree_search_cli:
                             if (
                                     (
                                             selector.startswith('#') and
-                                            (current_json_key == 'identifier') and
+                                            (current_json_key ==
+                                             'identifier') and
                                             (current_json_value ==
                                              selector[1:])
                                     ) or
                                     (
                                             selector.startswith('.') and
-                                            (current_json_key == 'classNames') and
+                                            (current_json_key ==
+                                             'classNames') and
                                             (selector[1:] in
                                              current_json_value)
                                     ) or
@@ -176,7 +178,8 @@ class viewtree_search_cli:
                                     )
                             ):
                                 local_search_hits[selector_index] += 1
-                                if self.check_full_search_match(local_search_hits):
+                                if self.check_full_search_match(
+                                        local_search_hits):
                                     match = True
                                     results.append(json_view_tree)
                                     if halt_on_match:
@@ -188,7 +191,8 @@ class viewtree_search_cli:
                 iterate over it
                 '''
                 for index, json_list_element in enumerate(json_view_tree):
-                    logging.info('found a list [not going to be a tuple or set].  searching it.')
+                    logging.info('found a list [not going to '
+                                 'be a tuple or set]. searching it.')
                     logging.info('recursing list item [ ' + str(index))
                     results.extend(
                         self.viewtree_search(
@@ -296,9 +300,11 @@ class viewtree_search_cli:
         print("source              outputs the current JSON source ")
         print("                    available for viewtree searching")
         print("![file name]        allows you to load a file of ")
-        print("                    JSON named file name-- don't use the brackets.")
+        print("                    JSON named file name-- "
+              "don't use the brackets.")
         print("@[URL]              allows you to load a URL of JSON ")
-        print("                    using the specified URL-- don't use the brackets.")
+        print("                    using the specified URL-- "
+              "don't use the brackets.")
         print("[Simple selector]   Searches loaded JSON ")
         print("                    using a simple selector")
         print(80 * '-')
