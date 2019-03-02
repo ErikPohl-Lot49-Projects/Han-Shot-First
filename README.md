@@ -26,7 +26,7 @@ Selectors handled now include:
 * A compound selector match will not short-circuit further descendent searches for other compound selector matches deeper in the ViewTree.  
 * Output of the lowest-most class in the ViewTree JSON which satisfies the selector match (like a CSS match) is satisfactory.
 * I know there are great, almost-standard Python libraries out there which could have made my work cleaner and easier (ahem, pytest, requests, even parameterized).  Had I searched PyPi, I might have found specific modules which could have made this work simpler.  *My assumption was that for this effort I'd use only standard library modules.*
-* I assumed JSON viewtree values will not contain spaces for the keys used in selectors. This seems to make sense because of the tie to actual naming conventions in the tools represented.
+* I assumed JSON viewtree values will not contain spaces for the keys used in selectors. This seems to make sense because of the tie to actual naming conventions in the tools represented and based on combinators.
   
 # Up Next
 - [ ] Attempt complex selectors/selector chaining
@@ -42,7 +42,7 @@ python viewtree_search_cli_demo_usage.py
 
 ### Prerequisites
 
-ViewTree Search CLI was developed in Python 3.7.  However, it should be backwards compatible into Python 3.6.  I have not tested it in earlier releases of Python 3.
+ViewTree Search CLI was developed in Python 3.7.  However, it should be backwards compatible into Python 3.6.  I have not tested it in earlier releases of Python 3. 
 
 ### Installing
 
