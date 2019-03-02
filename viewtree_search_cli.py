@@ -304,9 +304,9 @@ class viewtree_search_cli:
             "ViewTree Search is a CLI which allows you to load JSON "
             "from a file or from a URL and search it for various selectors.")
         print("?                   toggles debug mode")
-        print("help                outputs the help instructions [these]")
-        print("exit                exits the CLI")
-        print("source              outputs the current JSON source ")
+        print("\help               outputs the help instructions [these]")
+        print("\exit               exits the CLI")
+        print("\source             outputs the current JSON source ")
         print("                    available for viewtree searching")
         print("![file name]        allows you to load a file of ")
         print("                    JSON named file name-- "
@@ -397,20 +397,20 @@ class viewtree_search_cli:
                 self._toggle_debug_mode()
             elif command_string.startswith('@'):
                 self.load_json_from_url(command_string[1:])
-            elif command_string.lower() == 'help':
+            elif command_string.lower() == '\help':
                 self._print_help()
-            elif command_string.lower() == 'exit':
+            elif command_string.lower() == '\exit':
                 self._attempt_cli_exit()
             elif command_string.lower() in self._easter_eggs:
                 self._print_easter_egg()
-            elif command_string.lower() == 'source':
+            elif command_string.lower() == '\source':
                 self._output_json_source()
             else:  # this code is used to perform a viewtree
                 # search since all other command options are not in play
                 if not self.json_source:
                     print("No JSON source is loaded.  "
                           "Please load one from file or URL.")
-                    print("Remember: typing 'help' will get you "
+                    print("Remember: typing '\help' will get you "
                           "instructions to use this CLI.")
                 else:
                     self.viewtree_search_wrapper(command_string)
