@@ -119,7 +119,8 @@ class TestCases(TestCase):
                             halt_on_match=False
                         )
                     ),
-                    test_case['case_count']
+                    test_case['case_count'],
+                    msg='Testing case [' + test_case['case_name']+ ']'
                 )
 
     def test_json_source_status(self):
