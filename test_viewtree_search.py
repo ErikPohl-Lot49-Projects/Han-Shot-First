@@ -144,33 +144,45 @@ class TestCases(TestCase):
         output_redirect = io.StringIO()
         test_cases = [
             {
-                'case_name': 'simple selector case: Input class : 26 count',
+                'case_name': 'simple selector: class',
                 'case_command_string': "Input",
                 'case_command_list': ['Input']
             },
             {
-                'case_name': 'simple selector case: Input class : 26 count',
+                'case_name': 'compound selector: class identifier',
                 'case_command_string': 'Input#identifier',
                 'case_command_list': [
                     'Input', '#identifier'
                 ]
             },
             {
-                'case_name': 'simple selector case: Input class : 26 count',
+                'case_name': 'compound selector: class className',
+                'case_command_string': 'Input.container',
+                'case_command_list': [
+                    'Input', '.container'
+                ]
+            },
+            {
+                'case_name': 'compound selector: class identifier className',
                 'case_command_string': 'Input#identifier.container',
                 'case_command_list': [
                     'Input', '#identifier', '.container'
                 ]
             },
             {
-                'case_name': 'simple selector case: Input class : 26 count',
+                'case_name': 'simple selector: identifier',
                 'case_command_string': '#identifier',
                 'case_command_list': ['#identifier']
             },
             {
-                'case_name': 'simple selector case: Input class : 26 count',
+                'case_name': 'compound selector: identifier className',
                 'case_command_string': '#identifier.container',
                 'case_command_list': ['#identifier', '.container']
+            },
+            {
+                'case_name': 'simple selector: className',
+                'case_command_string': '.container',
+                'case_command_list': ['.container']
             }
         ]
         with redirect_stdout(output_redirect):
@@ -181,4 +193,5 @@ class TestCases(TestCase):
                     viewtree_search_object._split_string_command(
                         test_case['case_command_string']
                     ),
-                    msg=test_case['case_name'])
+                    msg=test_case['case_name']
+                )
