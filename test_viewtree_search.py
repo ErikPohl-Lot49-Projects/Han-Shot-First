@@ -29,7 +29,7 @@ class TestCases(TestCase):
         self.mos_eisley_test_file = 'mos_eisley.json'
         test_cases = [
             {
-                'case_name': 'simple selector case with user story results for class : 26 count',
+                'case_name': 'simple selector case: Input class : 26 count',
                 'case_file':
                     self.modal_nodes_test_file,
                 'case_search_commands': ["Input"],
@@ -106,33 +106,67 @@ class TestCases(TestCase):
         with redirect_stdout(output_redirect):
             viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
             for test_case in test_cases:
-                with open(test_case['case_file'], 'r') as test_file_handle:
-                    viewtree_search_object.json_source = load(test_file_handle)
-                    test_hits = [0] * len(test_case['case_search_commands'])
-                    self.assertEqual(
-                        len(
-                            viewtree_search_object.viewtree_search(
-                                viewtree_search_object.json_source,
-                                test_case['case_search_commands'],
-                                test_hits,
-                                halt_on_match=False
-                            )
-                        ),
-                        test_case['case_count']
-                    )
+                viewtree_search_object.load_json_from_file(
+                    test_case['case_file']
+                )
+                test_hits = [0] * len(test_case['case_search_commands'])
+                self.assertEqual(
+                    len(
+                        viewtree_search_object.viewtree_search(
+                            viewtree_search_object.json_source,
+                            test_case['case_search_commands'],
+                            test_hits,
+                            halt_on_match=False
+                        )
+                    ),
+                    test_case['case_count']
+                )
 
     def test_json_source_status(self):
-        viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
-        self.assertEqual(viewtree_search_object._json_source_status(), False)
-        viewtree_search_object.json_source = 'x'
-        self.assertEqual(viewtree_search_object._json_source_status(), True)
+        output_redirect = io.StringIO()
+        with redirect_stdout(output_redirect):
+            viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
+            self.assertEqual(
+                viewtree_search_object._json_source_status(),
+                False
+            )
+            viewtree_search_object.json_source = 'x'
+            self.assertEqual(
+                viewtree_search_object._json_source_status(),
+                True
+            )
 
     def test_split_string_command(self):
-        viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
-        self.assertEqual(viewtree_search_object._split_string_command('Input'), ['Input'])
-        self.assertEqual(viewtree_search_object._split_string_command('Input#identifier'), ['Input', '#identifier'])
-        self.assertEqual(viewtree_search_object._split_string_command('Input#identifier.container'),
-                         ['Input', '#identifier', '.container'])
-        self.assertEqual(viewtree_search_object._split_string_command('#identifier'), ['#identifier'])
-        self.assertEqual(viewtree_search_object._split_string_command('#identifier.container'),
-                         ['#identifier', '.container'])
+        output_redirect = io.StringIO()
+        with redirect_stdout(output_redirect):
+            viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
+            self.assertEqual(
+                viewtree_search_object._split_string_command(
+                    'Input'), [
+                    'Input'
+                ]
+            )
+            self.assertEqual(
+                viewtree_search_object._split_string_command(
+                    'Input#identifier'), [
+                    'Input', '#identifier'
+                ]
+            )
+            self.assertEqual(
+                viewtree_search_object._split_string_command(
+                    'Input#identifier.container'), [
+                    'Input', '#identifier', '.container'
+                ]
+            )
+            self.assertEqual(
+                viewtree_search_object._split_string_command(
+                    '#identifier'), [
+                    '#identifier'
+                ]
+            )
+            self.assertEqual(
+                viewtree_search_object._split_string_command(
+                    '#identifier.container'), [
+                    '#identifier', '.container'
+                ]
+            )
