@@ -49,6 +49,7 @@ class viewtree_search_cli:
         self._check_full_search_match = lambda hits: all(
             [hit_or_miss for hit_or_miss in hits]
         )
+        self._selector_prefixes = ['#', '.']
         self._recursable_tags = ('subviews', 'contentView', 'input', 'control')
         self._selector_keys = ('identifier', 'classNames', 'class')
         self._delims = ('#', '.', '!', '@')
@@ -77,14 +78,21 @@ class viewtree_search_cli:
         self._set_logging()
         logging.info('string command: ' + str(string_command))
         command_list = [string_command]
-        split_list = re.split(r"([\.#])", string_command)
+        ''' split by selector prefixes'''
+        split_list = re.split(
+            r"([" + ''.join(self._selector_prefixes) + "])",
+            string_command
+        )
         logging.info(split_list)
         logging.info(set(string_command[1:]).intersection(self._delims))
         if set(string_command[1:]).intersection(self._delims):
-            command_list = [''.join(prefix_pair) for prefix_pair in list(
-                zip(split_list[1::2], split_list[2::2]))]
+            command_list = [
+                ''.join(prefix_pair) for prefix_pair in list(
+                    zip(split_list[1::2], split_list[2::2])
+                )
+            ]
             if string_command[0] not in self._delims:
-                command_list = split_list[0:1] + command_list
+                command_list.insert(0, split_list[0])
         logging.info('command list' + str(command_list))
         return command_list
 
