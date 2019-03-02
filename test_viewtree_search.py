@@ -123,7 +123,7 @@ class TestCases(TestCase):
                         )
                     ),
                     test_case['case_count'],
-                    msg='Testing case [' + test_case['case_name']+ ']'
+                    msg='Testing case [' + test_case['case_name'] + ']'
                 )
 
     def test_json_source_status(self):
@@ -131,51 +131,54 @@ class TestCases(TestCase):
         with redirect_stdout(output_redirect):
             viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
             self.assertEqual(
-                viewtree_search_object._json_source_status(),
-                False
+                False,
+                viewtree_search_object._json_source_status()
             )
             viewtree_search_object.json_source = 'x'
             self.assertEqual(
-                viewtree_search_object._json_source_status(),
-                True
+                True,
+                viewtree_search_object._json_source_status()
             )
 
     def test_split_string_command(self):
         output_redirect = io.StringIO()
+        test_cases = [
+            {
+                'case_name': 'simple selector case: Input class : 26 count',
+                'case_command_string': "Input",
+                'case_command_list': ['Input']
+            },
+            {
+                'case_name': 'simple selector case: Input class : 26 count',
+                'case_command_string': 'Input#identifier',
+                'case_command_list': [
+                    'Input', '#identifier'
+                ]
+            },
+            {
+                'case_name': 'simple selector case: Input class : 26 count',
+                'case_command_string': 'Input#identifier.container',
+                'case_command_list': [
+                    'Input', '#identifier', '.container'
+                ]
+            },
+            {
+                'case_name': 'simple selector case: Input class : 26 count',
+                'case_command_string': '#identifier',
+                'case_command_list': ['#identifier']
+            },
+            {
+                'case_name': 'simple selector case: Input class : 26 count',
+                'case_command_string': '#identifier.container',
+                'case_command_list': ['#identifier', '.container']
+            }
+        ]
         with redirect_stdout(output_redirect):
             viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
-            self.assertEqual(
-                [
-                    'Input'
-                ],
-                viewtree_search_object._split_string_command(
-                    'Input')
-            )
-            self.assertEqual(
-                [
-                    'Input', '#identifier'
-                ],
-                viewtree_search_object._split_string_command(
-                    'Input#identifier'),
-            )
-            self.assertEqual(
-                [
-                    'Input', '#identifier', '.container'
-                ],
-                viewtree_search_object._split_string_command(
-                    'Input#identifier.container')
-            )
-            self.assertEqual(
-                [
-                    '#identifier'
-                ],
-                viewtree_search_object._split_string_command(
-                    '#identifier')
-            )
-            self.assertEqual(
-                [
-                    '#identifier', '.container'
-                ],
-                viewtree_search_object._split_string_command(
-                    '#identifier.container')
-            )
+            for test_case in test_cases:
+                self.assertEqual(
+                    test_case['case_command_list'],
+                    viewtree_search_object._split_string_command(
+                        test_case['case_command_string']
+                    ),
+                    msg=test_case['case_name'])
