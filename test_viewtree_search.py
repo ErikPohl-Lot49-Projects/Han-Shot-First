@@ -24,7 +24,12 @@ class TestCases(TestCase):
     '''Test cases for the most complicated part of the ViewTree CLI'''
 
     def test_batches_of_cases(self):
-        ''''Repeatedly call tests based on a list of test dictionaries'''
+        '''
+        For a list of test cases,
+        load a test file, run a selector search against it using
+        the viewtree search method, and compare
+        the result against expected results
+        '''
         self.modal_nodes_test_file = 'the_modal_nodes.json'
         self.mos_eisley_test_file = 'mos_eisley.json'
         test_cases = [
@@ -127,6 +132,10 @@ class TestCases(TestCase):
                 )
 
     def test_json_source_status(self):
+        '''
+        these tests confirm the source status check
+        works as expected
+        '''
         output_redirect = io.StringIO()
         with redirect_stdout(output_redirect):
             viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
@@ -141,6 +150,12 @@ class TestCases(TestCase):
             )
 
     def test_split_string_command(self):
+        '''
+        For a list of test cases,
+        split a command string using the
+        split method
+        and compare against expected list results
+        '''
         output_redirect = io.StringIO()
         test_cases = [
             {
