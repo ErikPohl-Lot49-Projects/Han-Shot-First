@@ -113,6 +113,11 @@ Here is a generic list of standards which are applied when preparing a build.
   - [x] Using idiomatic Python versus clarity of code
   - [x] Having functions return values -- as a default-- have a good reason not to
 
+# Disclaimers
+
+* Some of this documentation, naming choices, and code involves fun I might have with friends and colleagues, but not include in work intended for a client.  
+* Use of a fictional blaster to dispose of bounty hunters claiming a bounty on one's head is neither endorsed nor proscribed herein.
+
 # Trivia
 
 * The title of this repo refers to a controversy introduced in the 1997 Special Edition Star Wars rerelease of Star Wars IV: A New Hope.
