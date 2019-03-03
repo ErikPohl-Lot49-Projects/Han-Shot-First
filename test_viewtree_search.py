@@ -23,7 +23,7 @@ __status__ = "Code Review"
 class TestCases(TestCase):
     '''Test cases for the most complicated part of the ViewTree CLI'''
 
-    def test_batches_of_cases(self):
+    def test_viewtree_searches(self):
         '''
         For a list of test cases,
         load a test file, run a selector search against it using
@@ -141,12 +141,14 @@ class TestCases(TestCase):
             viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
             self.assertEqual(
                 False,
-                viewtree_search_object._json_source_status()
+                viewtree_search_object._json_source_status(),
+                msg="Has No JSON: JSON Source Status Test"
             )
             viewtree_search_object.json_source = 'x'
             self.assertEqual(
                 True,
-                viewtree_search_object._json_source_status()
+                viewtree_search_object._json_source_status(),
+                msg="Has JSON: JSON Source Status Test"
             )
 
     def test_split_string_command(self):
