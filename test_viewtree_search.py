@@ -105,6 +105,13 @@ class TestCases(TestCase):
                     self.mos_eisley_test_file,
                 'case_search_commands': ['Ponda_Baba', '.Doctor_Evazan'],
                 'case_count': 2  # this is a case I'd like to discuss
+            },
+            {
+                'case_name': 'reserved words test',
+                'case_file':
+                    self.mos_eisley_test_file,
+                'case_search_commands': ['source', '.help', '.exit'],
+                'case_count': 1  # this is a case I'd like to discuss
             }
         ]
         last_loaded_file = None
