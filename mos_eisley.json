@@ -36,6 +36,13 @@
       ]
 }
      ]
+    },
+    {
+      "class": "source",
+      "classNames": [
+        "help",
+        "exit"
+      ]
     }
   ]
 }
