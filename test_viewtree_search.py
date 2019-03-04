@@ -128,8 +128,7 @@ class TestCases(TestCase):
                     len(
                         viewtree_search_object.viewtree_search(
                             viewtree_search_object.json_source,
-                            test_case['case_search_commands'],
-                            halt_on_match=False
+                            test_case['case_search_commands']
                         )
                     ),
                     test_case['case_count'],
