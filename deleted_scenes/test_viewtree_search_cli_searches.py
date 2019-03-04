@@ -100,12 +100,10 @@ def test_eval(case_name, case_file, case_search_commands, expected_count):
     viewtree_search_object.load_json_from_file(
         case_file
     )
-    test_hits = [0] * len(case_search_commands)
     assert len(
         viewtree_search_object.viewtree_search(
             viewtree_search_object.json_source,
             case_search_commands,
-            test_hits,
             halt_on_match=False
         )
     ) == expected_count
