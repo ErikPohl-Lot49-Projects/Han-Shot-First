@@ -102,15 +102,13 @@ class viewtree_search_cli:
             selectors,
             search_hits,
             halt_on_match=False,
-            allow_double_matching=False,
-            level=0
+            allow_double_matching=False
     ):
         '''
         perform a viewtree search on a json_view_tree using search_commands
         output the list of findings of that search
         '''
         self._set_logging()
-        logging.info('Level' + str(level))
         local_selectors = selectors[:]
         local_search_hits = search_hits[:]
         results = []
@@ -146,8 +144,7 @@ class viewtree_search_cli:
                             local_selectors,
                             local_search_hits,
                             halt_on_match=halt_on_match,
-                            allow_double_matching=allow_double_matching,
-                            level=level + 1
+                            allow_double_matching=allow_double_matching
                         )
                     )
                 else:
@@ -207,8 +204,7 @@ class viewtree_search_cli:
                             local_selectors,
                             local_search_hits,
                             halt_on_match=halt_on_match,
-                            allow_double_matching=allow_double_matching,
-                            level=level + 1
+                            allow_double_matching=allow_double_matching
                         )
                     )
             except:
