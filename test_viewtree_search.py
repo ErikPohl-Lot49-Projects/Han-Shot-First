@@ -124,13 +124,11 @@ class TestCases(TestCase):
                         test_case['case_file']
                     )
                     last_loaded_file = test_case['case_file']
-                test_hits = [0] * len(test_case['case_search_commands'])
                 self.assertEqual(
                     len(
                         viewtree_search_object.viewtree_search(
                             viewtree_search_object.json_source,
                             test_case['case_search_commands'],
-                            test_hits,
                             halt_on_match=False
                         )
                     ),
