@@ -52,8 +52,7 @@ class viewtree_search_cli:
         self._selector_prefixes = ['#', '.']
         self._recursable_tags = ('subviews', 'contentView', 'input', 'control')
         self._selector_keys = ('identifier', 'classNames', 'class')
-        self._combinators = (' ', '>', '+', '~')
-        self._easter_eggs = ('easter egg', 'uuddlrlrba')
+        self._easter_eggs = ('\easter egg', '\uuddlrlrba')
         logging.basicConfig(stream=sys.stderr, level=logging.INFO)
         self._output_welcome_message()
 
@@ -83,7 +82,12 @@ class viewtree_search_cli:
             string_command
         )
         logging.info(split_list)
-        logging.info(set(string_command[1:]).intersection(self._selector_prefixes))
+        logging.info(
+            set(
+                string_command[1:]).intersection(
+                self._selector_prefixes
+            )
+        )
         if set(string_command[1:]).intersection(self._selector_prefixes):
             command_list = [
                 ''.join(prefix_pair) for prefix_pair in list(
