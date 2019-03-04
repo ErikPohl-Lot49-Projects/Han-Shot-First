@@ -35,7 +35,7 @@ class viewtree_search_cli:
         print("ViewTree Search CLI is a CLI which allows a user to "
               "load ViewTree JSON scripts from files or from URLs and"
               " then perform selector searches on it.")
-        print("Type 'help' for instructions for use.")
+        print("Type '\\help' for instructions for use.")
         return True
 
     def __init__(self):
@@ -103,7 +103,7 @@ class viewtree_search_cli:
             self,
             json_view_tree,
             selectors,
-            search_hits,
+            search_hits=None,
             halt_on_match=False,
             allow_double_matching=False
     ):
@@ -112,6 +112,8 @@ class viewtree_search_cli:
         output the list of findings of that search
         '''
         self._set_logging()
+        if search_hits is None:
+            search_hits = len(selectors) * [0]
         local_selectors = selectors[:]
         local_search_hits = search_hits[:]
         results = []
@@ -241,11 +243,9 @@ class viewtree_search_cli:
 
     def viewtree_search_wrapper(self, command_string):
         command_list = self._split_string_command(command_string)
-        command_hits = len(command_list) * [0]
         search_results = self.viewtree_search(
             self.json_source,
-            command_list,
-            command_hits
+            command_list
         )
         self.output_results(list(search_results))
         return search_results
@@ -299,9 +299,9 @@ class viewtree_search_cli:
             "ViewTree Search is a CLI which allows you to load JSON "
             "from a file or from a URL and search it for various selectors.")
         print("?                   toggles debug mode")
-        print("\help               outputs the help instructions [these]")
-        print("\exit               exits the CLI")
-        print("\source             outputs the current JSON source ")
+        print("\\help               outputs the help instructions [these]")
+        print("\\exit               exits the CLI")
+        print("\\source             outputs the current JSON source ")
         print("                    available for viewtree searching")
         print("![file name]        allows you to load a file of ")
         print("                    JSON named file name-- "
@@ -392,20 +392,20 @@ class viewtree_search_cli:
                 self._toggle_debug_mode()
             elif command_string.startswith('@'):
                 self.load_json_from_url(command_string[1:])
-            elif command_string.lower() == '\help':
+            elif command_string.lower() == '\\help':
                 self._print_help()
-            elif command_string.lower() == '\exit':
+            elif command_string.lower() == '\\exit':
                 self._attempt_cli_exit()
             elif command_string.lower() in self._easter_eggs:
                 self._print_easter_egg()
-            elif command_string.lower() == '\source':
+            elif command_string.lower() == '\\source':
                 self._output_json_source()
             else:  # this code is used to perform a viewtree
                 # search since all other command options are not in play
                 if not self.json_source:
                     print("No JSON source is loaded.  "
                           "Please load one from file or URL.")
-                    print("Remember: typing '\help' will get you "
+                    print("Remember: typing '\\help' will get you "
                           "instructions to use this CLI.")
                 else:
                     self.viewtree_search_wrapper(command_string)
