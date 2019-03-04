@@ -102,7 +102,6 @@ class viewtree_search_cli:
             selectors,
             search_hits,
             halt_on_match=False,
-            debug_mode=False,
             allow_double_matching=False,
             level=0
     ):
@@ -147,7 +146,6 @@ class viewtree_search_cli:
                             local_selectors,
                             local_search_hits,
                             halt_on_match=halt_on_match,
-                            debug_mode=debug_mode,
                             allow_double_matching=allow_double_matching,
                             level=level + 1
                         )
@@ -209,7 +207,6 @@ class viewtree_search_cli:
                             local_selectors,
                             local_search_hits,
                             halt_on_match=halt_on_match,
-                            debug_mode=debug_mode,
                             allow_double_matching=allow_double_matching,
                             level=level + 1
                         )
@@ -249,8 +246,7 @@ class viewtree_search_cli:
         search_results = self.viewtree_search(
             self.json_source,
             command_list,
-            command_hits,
-            debug_mode=self.debug_mode
+            command_hits
         )
         self.output_results(list(search_results))
         return search_results
