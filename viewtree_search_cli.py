@@ -90,7 +90,7 @@ class viewtree_search_cli:
         )
         # only split if selectors are compounded
         if set(string_command[1:]).intersection(self._selector_prefixes):
-            # results in either a class as the first list item or a null
+            # the re.split resulted in either a class as the first list item or a null
             command_list = [
                 ''.join(prefix_pair) for prefix_pair in list(
                     zip(split_list[1::2], split_list[2::2])
