@@ -65,6 +65,7 @@ class viewtree_search_cli:
         logging.disable(logging.NOTSET) \
             if self.debug_mode \
             else logging.disable(logging.INFO)
+        return self.debug_mode
 
     def _split_string_command(self,
                               string_command
