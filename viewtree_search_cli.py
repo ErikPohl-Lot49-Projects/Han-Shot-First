@@ -52,7 +52,7 @@ class viewtree_search_cli:
         self._selector_prefixes = ['#', '.']
         self._recursable_tags = ('subviews', 'contentView', 'input', 'control')
         self._selector_keys = ('identifier', 'classNames', 'class')
-        self._easter_eggs = ('\easter egg', '\\uuddlrlrba')
+        self._easter_eggs = ('\\easter egg', '\\uuddlrlrba')
         logging.basicConfig(stream=sys.stderr, level=logging.INFO)
         self._output_welcome_message()
 
@@ -88,12 +88,15 @@ class viewtree_search_cli:
                 self._selector_prefixes
             )
         )
+        # only split if selectors are compounded
         if set(string_command[1:]).intersection(self._selector_prefixes):
+            # results in either a class as the first list item or a null
             command_list = [
                 ''.join(prefix_pair) for prefix_pair in list(
                     zip(split_list[1::2], split_list[2::2])
                 )
             ]
+            # handles the class as first list item
             if string_command[0] not in self._selector_prefixes:
                 command_list.insert(0, split_list[0])
         logging.info('command list' + str(command_list))
