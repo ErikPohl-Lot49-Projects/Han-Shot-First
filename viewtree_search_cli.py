@@ -115,7 +115,7 @@ class viewtree_search_cli:
         output the list of findings of that search
         '''
         self._set_logging()
-        if search_hits is None:
+        if not search_hits:
             search_hits = len(selectors) * [0]
         local_selectors = selectors[:]
         local_search_hits = search_hits[:]
