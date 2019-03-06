@@ -8,7 +8,7 @@ from unittest import TestCase
 from json import load
 from contextlib import redirect_stdout
 import io
-from viewtree_search_cli import viewtree_search_cli
+import viewtree_search_cli
 
 __author__ = "Erik Pohl"
 __copyright__ = "None"
