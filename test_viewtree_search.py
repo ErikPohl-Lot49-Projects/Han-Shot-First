@@ -8,7 +8,7 @@ from unittest import TestCase
 from json import load
 from contextlib import redirect_stdout
 import io
-import viewtree_search_cli
+from viewtree_search_cli import viewtree_search_cli
 
 __author__ = "Erik Pohl"
 __copyright__ = "None"
@@ -127,7 +127,6 @@ class TestCases(TestCase):
                 self.assertEqual(
                     len(
                         viewtree_search_object.viewtree_search(
-                            viewtree_search_object.json_source,
                             test_case['case_search_commands']
                         )
                     ),
