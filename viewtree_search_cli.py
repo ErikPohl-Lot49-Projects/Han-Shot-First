@@ -177,14 +177,14 @@ class viewtree_search_cli:
                             if (
                                     (
                                             selector.startswith('#') and
-                                            (current_json_key ==
+                                            (self._apply_case_sensitivity(current_json_key) ==
                                              'identifier') and
                                             (self._apply_case_sensitivity(current_json_value) ==
                                              self._apply_case_sensitivity(selector[1:]))
                                     ) or
                                     (
                                             selector.startswith('.') and
-                                            (current_json_key ==
+                                            (self._apply_case_sensitivity(current_json_key) ==
                                              'classNames') and
                                             (self._apply_case_sensitivity(selector[1:]) in
                                              [self._apply_case_sensitivity(className) for className in current_json_value])
@@ -192,7 +192,7 @@ class viewtree_search_cli:
                                     (
                                             not selector.startswith('#') and
                                             not selector.startswith('.') and
-                                            (current_json_key == 'class') and
+                                            (self._apply_case_sensitivity(current_json_key) == 'class') and
                                             (self._apply_case_sensitivity(current_json_value) ==
                                              self._apply_case_sensitivity(selector[0:]))
                                     )
