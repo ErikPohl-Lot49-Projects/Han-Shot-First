@@ -45,17 +45,21 @@ class viewtree_search_cli:
         '''
 
         self.json_source = None
-        self.debug_mode = False
+        self.debug_mode = False # debug mode allows for logging message output
+        self.halt_on_match = False # True: on the first complete selector match halt and stop recursing 
+        self.allow_double_matching = False # True : if two or more tags form a complete match repeat the matched class as output
+        self.case_sensitive_search = False # assumes tag name and value must be the same case to form a match
         self._check_full_search_match = lambda hits: all(
             [hit_or_miss for hit_or_miss in hits]
-        )
-        self._selector_prefixes = ['#', '.']
+        ) 
+        self._selector_prefixes = ['#', '.'] 
         self._recursable_tags = ('subviews', 'contentView', 'input', 'control')
         self._selector_keys = ('identifier', 'classNames', 'class')
         self._easter_eggs = ('\\easter egg', '\\uuddlrlrba')
-        logging.basicConfig(stream=sys.stderr, level=logging.INFO)
+        logging.basicConfig(stream=sys.stderr, level=logging.INFO) 
         self._output_welcome_message()
-
+        
+        
     def _set_logging(self):
         '''
         set logging on or off for info
@@ -103,14 +107,17 @@ class viewtree_search_cli:
         logging.info('command list' + str(command_list))
         return command_list
 
+    def case_check(self, value):
+        if not self.case_sensitive_search:
+            return value.lower()
+        return value
+            
     def viewtree_search(
             self,
-            json_view_tree,
             selectors,
-            search_hits=None,
-            halt_on_match=False,
-            allow_double_matching=False
-    ):
+            json_view_tree=None,
+            search_hits=None
+            ):
         '''
         perform a viewtree search on a json_view_tree using search_commands
         output the list of findings of that search
@@ -118,6 +125,8 @@ class viewtree_search_cli:
         self._set_logging()
         if not search_hits:
             search_hits = len(selectors) * [0]
+        if not json_view_tree:
+            json_view_tree = self.json_source
         local_selectors = selectors[:]
         local_search_hits = search_hits[:]
         results = []
@@ -149,11 +158,9 @@ class viewtree_search_cli:
                     logging.info(log_message)
                     results.extend(
                         self.viewtree_search(
-                            current_json_value,
                             local_selectors,
-                            local_search_hits,
-                            halt_on_match=halt_on_match,
-                            allow_double_matching=allow_double_matching
+                            json_view_tree=current_json_value,
+                            search_hits=local_search_hits
                         )
                     )
                 else:
@@ -163,7 +170,7 @@ class viewtree_search_cli:
                     check it for matches with
                     the selectors
                     '''
-                    if (allow_double_matching) or (not match) and \
+                    if (self.allow_double_matching) or (not match) and \
                             (current_json_key in self._selector_keys):
                         for selector_index, selector in \
                                 enumerate(local_selectors):
@@ -172,22 +179,22 @@ class viewtree_search_cli:
                                             selector.startswith('#') and
                                             (current_json_key ==
                                              'identifier') and
-                                            (current_json_value ==
-                                             selector[1:])
+                                            (self.case_check(current_json_value) ==
+                                             self.case_check(selector[1:]))
                                     ) or
                                     (
                                             selector.startswith('.') and
                                             (current_json_key ==
                                              'classNames') and
-                                            (selector[1:] in
-                                             current_json_value)
+                                            (self.case_check(selector[1:]) in
+                                             [self.case_check(className) for className in current_json_value])
                                     ) or
                                     (
                                             not selector.startswith('#') and
                                             not selector.startswith('.') and
                                             (current_json_key == 'class') and
-                                            (current_json_value ==
-                                             selector[0:])
+                                            (self.case_check(current_json_value) ==
+                                             self.case_check(selector[0:]))
                                     )
                             ):
                                 local_search_hits[selector_index] += 1
@@ -195,7 +202,7 @@ class viewtree_search_cli:
                                         local_search_hits):
                                     match = True
                                     results.append(json_view_tree)
-                                    if halt_on_match:
+                                    if self.halt_on_match:
                                         return results
         except:
             try:
@@ -209,12 +216,10 @@ class viewtree_search_cli:
                     logging.info('recursing list item [ ' + str(index))
                     results.extend(
                         self.viewtree_search(
-                            json_list_element,
                             local_selectors,
-                            local_search_hits,
-                            halt_on_match=halt_on_match,
-                            allow_double_matching=allow_double_matching
-                        )
+                            json_view_tree=json_list_element,
+                            search_hits=local_search_hits
+                            )
                     )
             except:
                 '''
@@ -248,7 +253,6 @@ class viewtree_search_cli:
     def viewtree_search_wrapper(self, command_string):
         command_list = self._split_string_command(command_string)
         search_results = self.viewtree_search(
-            self.json_source,
             command_list
         )
         self.output_results(list(search_results))
