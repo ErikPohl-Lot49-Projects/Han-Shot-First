@@ -46,7 +46,7 @@ class viewtree_search_cli:
 
         self.json_source = None
         self.debug_mode = False # debug mode allows for logging message output
-        self.halt_on_match = False # True: on the first complete selector match halt and stop recursing 
+        self.halt_on_match = False # if True, on the first complete selector match halt and stop recursing 
         self.allow_double_matching = False # True : if two or more tags form a complete match repeat the matched class as output
         self.case_sensitive_search = True # assumes tag name and value must be the same case to form a match
         self._check_full_search_match = lambda hits: all(
@@ -107,7 +107,7 @@ class viewtree_search_cli:
         logging.info('command list' + str(command_list))
         return command_list
 
-    def case_check(self, value):
+    def _apply_case_sensitivity(self, value):
         if not self.case_sensitive_search:
             return value.lower()
         return value
@@ -179,22 +179,22 @@ class viewtree_search_cli:
                                             selector.startswith('#') and
                                             (current_json_key ==
                                              'identifier') and
-                                            (self.case_check(current_json_value) ==
-                                             self.case_check(selector[1:]))
+                                            (self._apply_case_sensitivity(current_json_value) ==
+                                             self._apply_case_sensitivity(selector[1:]))
                                     ) or
                                     (
                                             selector.startswith('.') and
                                             (current_json_key ==
                                              'classNames') and
-                                            (self.case_check(selector[1:]) in
-                                             [self.case_check(className) for className in current_json_value])
+                                            (self._apply_case_sensitivity(selector[1:]) in
+                                             [self._apply_case_sensitivity(className) for className in current_json_value])
                                     ) or
                                     (
                                             not selector.startswith('#') and
                                             not selector.startswith('.') and
                                             (current_json_key == 'class') and
-                                            (self.case_check(current_json_value) ==
-                                             self.case_check(selector[0:]))
+                                            (self._apply_case_sensitivity(current_json_value) ==
+                                             self._apply_case_sensitivity(selector[0:]))
                                     )
                             ):
                                 local_search_hits[selector_index] += 1
