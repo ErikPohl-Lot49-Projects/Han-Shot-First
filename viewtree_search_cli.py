@@ -48,7 +48,7 @@ class viewtree_search_cli:
         self.debug_mode = False # debug mode allows for logging message output
         self.halt_on_match = False # True: on the first complete selector match halt and stop recursing 
         self.allow_double_matching = False # True : if two or more tags form a complete match repeat the matched class as output
-        self.case_sensitive_search = False # assumes tag name and value must be the same case to form a match
+        self.case_sensitive_search = True # assumes tag name and value must be the same case to form a match
         self._check_full_search_match = lambda hits: all(
             [hit_or_miss for hit_or_miss in hits]
         ) 
