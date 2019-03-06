@@ -151,8 +151,7 @@ class viewtree_search_cli:
                 if the key is a recursable tag (dict, list)
                 which is not classNames
                 '''
-                if (current_json_key in self._recursable_tags) and \
-                        current_json_key not in self._selector_keys:
+                if (current_json_key in self._recursable_tags):
                     log_message = 'recursing into ' + str(type(
                         current_json_value)) + str(current_json_value)
                     logging.info(log_message)
