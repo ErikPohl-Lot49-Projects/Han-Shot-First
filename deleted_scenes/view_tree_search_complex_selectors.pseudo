@@ -1,0 +1,22 @@
+The function given pseudocode here is to add complex selectors to the viewtree_search_cli class.
+
+It could be included in the viewtree_search_wrapper function.
+
+There are some argument prereqs:
+* I would need to add in a level argument into viewtree_search_cli which tracks level of match.  This is trivial.
+* I would need to include level in the function return value for each match as a tuple.  This is trivial.
+* I would need to add another argument called level restriction which would only allow matches to occur with the level indicated based on only_one_level (below).  This is trivial.
+* I would need to add another argument called first only which would only take one match per level.  This is trivial.
+* I would need to add another argument called only_one_level_match which would combine with level restriction 
+
+In the wrapper, I would group selectors prior to a combinator or prior to the end of the command.
+I'd get all matches paired with their levels for the first grouped selector.
+If it is followed by a combinator, I'd do the following: 
+* record the combinator 
+* perform the search for the next selector grouping using matches from the previous group
+  * if the combinator was a white-space, or a descendent combinator, I'd search using the current level of the previous group find + 1 as level restriction with false for only_one_level and false for first only.
+  * if the combinator was a >, or a child combinator, I'd search using the current level of the previous group find + 1 as level restriction with true for only_one_level and false for first only.
+  * if the combinator was a +, or a adjacent combinator, I'd search using the current level of the previous group find as level restriction with true for only_one_level and true for first only.
+  * if the combinator was a ~, or a general sibling combinator, I'd search using the current level of the previous group find as level restriction with true for only_one_level and false for first only.
+If it is followed by the end of command, then I'd return any results.
+If at any point a combinator-joined selector-group doesn't yield results for any previous-group matching, I'd return no results.
