@@ -45,21 +45,20 @@ class viewtree_search_cli:
         '''
 
         self.json_source = None
-        self.debug_mode = False # debug mode allows for logging message output
-        self.halt_on_match = False # if True, on the first complete selector match halt and stop recursing 
-        self.allow_double_matching = False # True : if two or more tags form a complete match repeat the matched class as output
-        self.case_sensitive_search = True # assumes tag name and value must be the same case to form a match
+        self.debug_mode = False  # log message to stdout
+        self.halt_on_match = False  # on selector match stop recursing
+        self.allow_double_matching = False  # > 1 match report for class
+        self.case_sensitive_search = True  # tag key and value case sensitivity
         self._check_full_search_match = lambda hits: all(
             [hit_or_miss for hit_or_miss in hits]
-        ) 
-        self._selector_prefixes = ['#', '.'] 
+        )
+        self._selector_prefixes = ['#', '.']
         self._recursable_tags = ('subviews', 'contentView', 'input', 'control')
         self._selector_keys = ('identifier', 'classNames', 'class')
         self._easter_eggs = ('\\easter egg', '\\uuddlrlrba')
-        logging.basicConfig(stream=sys.stderr, level=logging.INFO) 
+        logging.basicConfig(stream=sys.stderr, level=logging.INFO)
         self._output_welcome_message()
-        
-        
+
     def _set_logging(self):
         '''
         set logging on or off for info
@@ -93,9 +92,10 @@ class viewtree_search_cli:
                 self._selector_prefixes
             )
         )
-        # if selectors are compounded, need to join prefixes back in
+        ''' if selectors are compounded, need to join prefixes back in'''
         if set(string_command[1:]).intersection(self._selector_prefixes):
-            # the re.split resulted in either a class as the first list item or a null
+            '''the re.split resulted in either
+            a class as the first list item or a null'''
             command_list = [
                 ''.join(prefix_pair) for prefix_pair in list(
                     zip(split_list[1::2], split_list[2::2])
@@ -111,13 +111,13 @@ class viewtree_search_cli:
         if not self.case_sensitive_search:
             return value.lower()
         return value
-            
+
     def viewtree_search(
             self,
             selectors,
             json_view_tree=None,
             search_hits=None
-            ):
+    ):
         '''
         perform a viewtree search on a json_view_tree using search_commands
         output the list of findings of that search
@@ -176,24 +176,45 @@ class viewtree_search_cli:
                             if (
                                     (
                                             selector.startswith('#') and
-                                            (self._apply_case_sensitivity(current_json_key) ==
+                                            (self._apply_case_sensitivity(
+                                                current_json_key
+                                            ) ==
                                              'identifier') and
-                                            (self._apply_case_sensitivity(current_json_value) ==
-                                             self._apply_case_sensitivity(selector[1:]))
+                                            (self._apply_case_sensitivity(
+                                                current_json_value
+                                            ) ==
+                                             self._apply_case_sensitivity(
+                                                 selector[1:])
+                                            )
                                     ) or
                                     (
                                             selector.startswith('.') and
-                                            (self._apply_case_sensitivity(current_json_key) ==
+                                            (self._apply_case_sensitivity(
+                                                current_json_key
+                                            ) ==
                                              'classNames') and
-                                            (self._apply_case_sensitivity(selector[1:]) in
-                                             [self._apply_case_sensitivity(className) for className in current_json_value])
+                                            (self._apply_case_sensitivity(
+                                                selector[1:]
+                                            ) in
+                                             [self._apply_case_sensitivity(
+                                                 className
+                                             ) for className in
+                                              current_json_value]
+                                            )
                                     ) or
                                     (
                                             not selector.startswith('#') and
                                             not selector.startswith('.') and
-                                            (self._apply_case_sensitivity(current_json_key) == 'class') and
-                                            (self._apply_case_sensitivity(current_json_value) ==
-                                             self._apply_case_sensitivity(selector[0:]))
+                                            (self._apply_case_sensitivity(
+                                                current_json_key
+                                            ) == 'class') and
+                                            (self._apply_case_sensitivity(
+                                                current_json_value
+                                            ) ==
+                                             self._apply_case_sensitivity(
+                                                 selector[0:]
+                                             )
+                                            )
                                     )
                             ):
                                 local_search_hits[selector_index] += 1
@@ -218,7 +239,7 @@ class viewtree_search_cli:
                             local_selectors,
                             json_view_tree=json_list_element,
                             search_hits=local_search_hits
-                            )
+                        )
                     )
             except:
                 '''
