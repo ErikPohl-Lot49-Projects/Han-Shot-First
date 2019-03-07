@@ -171,50 +171,44 @@ class viewtree_search_cli:
                     '''
                     if (self.allow_double_matching) or (not match) and \
                             (current_json_key in self._selector_keys):
-                        for selector_index, selector in \
-                                enumerate(local_selectors):
-                            if (
-                                    (
-                                            selector.startswith('#') and
-                                            (self._apply_case_sensitivity(
-                                                current_json_key
-                                            ) ==
-                                             'identifier') and
-                                            (self._apply_case_sensitivity(
-                                                current_json_value
-                                            ) ==
-                                             self._apply_case_sensitivity(
-                                                 selector[1:])
-                                            )
-                                    ) or
-                                    (
-                                            selector.startswith('.') and
-                                            (self._apply_case_sensitivity(
-                                                current_json_key
-                                            ) ==
-                                             'classNames') and
-                                            (self._apply_case_sensitivity(
-                                                selector[1:]
-                                            ) in
-                                             [self._apply_case_sensitivity(
+                        current_json_key = self._apply_case_sensitivity(
+                            current_json_key
+                            )
+                        try: 
+                            current_json_value = self._apply_case_sensitivity(
+                                current_json_value
+                                )
+                        except:
+                            current_json_value = [self._apply_case_sensitivity(
                                                  className
                                              ) for className in
                                               current_json_value]
-                                            )
+                        classnames = self._apply_case_sensitivity('classNames')
+                        for selector_index, selector in \
+                                enumerate(local_selectors):
+                            selector = self._apply_case_sensitivity(selector)
+                            offset_selector = selector[1:]
+                            if (
+                                    (
+                                            selector.startswith('#') and
+                                            current_json_key == 'identifier' and
+                                            current_json_value ==
+                                             offset_selector
+                                    ) or
+                                    (
+                                            selector.startswith('.') and
+                                            current_json_key ==
+                                             classnames and
+                                            offset_selector in
+                                             current_json_value
                                     ) or
                                     (
                                             not selector.startswith('#') and
                                             not selector.startswith('.') and
-                                            (self._apply_case_sensitivity(
-                                                current_json_key
-                                            ) == 'class') and
-                                            (self._apply_case_sensitivity(
-                                                current_json_value
-                                            ) ==
-                                             self._apply_case_sensitivity(
-                                                 selector[0:]
-                                             )
-                                            )
+                                            current_json_key
+                                             == 'class' and
+                                            current_json_value ==
+                                             selector
                                     )
                             ):
                                 local_search_hits[selector_index] += 1
