@@ -5,7 +5,7 @@ and to prove functionality works
 '''
 
 import pytest
-import viewtree_search_cli
+from viewtree_search_cli import viewtree_search_cli
 
 __author__ = "Erik Pohl"
 __copyright__ = "None"
@@ -96,13 +96,12 @@ __status__ = "Code Review"
                              )
                          ])
 def test_eval(case_name, case_file, case_search_commands, expected_count):
-    viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
+    viewtree_search_object = viewtree_search_cli()
     viewtree_search_object.load_json_from_file(
         case_file
     )
     assert len(
         viewtree_search_object.viewtree_search(
-            viewtree_search_object.json_source,
             case_search_commands
         )
     ) == expected_count
