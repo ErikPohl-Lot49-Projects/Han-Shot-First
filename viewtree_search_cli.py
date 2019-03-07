@@ -203,8 +203,8 @@ class viewtree_search_cli:
                                              current_json_value
                                     ) or
                                     (
-                                            not selector.startswith('#') and
-                                            not selector.startswith('.') and
+                                            selector[0] not in 
+                                            self._selector_prefixes and
                                             current_json_key
                                              == 'class' and
                                             current_json_value ==
