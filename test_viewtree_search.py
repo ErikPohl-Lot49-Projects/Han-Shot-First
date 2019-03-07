@@ -5,10 +5,10 @@ and to prove functionality works
 '''
 
 from unittest import TestCase
+from json import load
 from contextlib import redirect_stdout
 import io
-from viewtree_search_cli import viewtree_search_cli
-
+import viewtree_search_cli
 
 __author__ = "Erik Pohl"
 __copyright__ = "None"
@@ -117,7 +117,7 @@ class TestCases(TestCase):
         last_loaded_file = None
         output_redirect = io.StringIO()
         with redirect_stdout(output_redirect):
-            viewtree_search_object = viewtree_search_cli()
+            viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
             for test_case in test_cases:
                 if test_case['case_file'] != last_loaded_file:
                     viewtree_search_object.load_json_from_file(
@@ -141,7 +141,7 @@ class TestCases(TestCase):
         '''
         output_redirect = io.StringIO()
         with redirect_stdout(output_redirect):
-            viewtree_search_object = viewtree_search_cli()
+            viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
             self.assertEqual(
                 False,
                 viewtree_search_object._json_source_status(),
@@ -206,7 +206,7 @@ class TestCases(TestCase):
             }
         ]
         with redirect_stdout(output_redirect):
-            viewtree_search_object = viewtree_search_cli()
+            viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
             for test_case in test_cases:
                 self.assertEqual(
                     test_case['case_command_list'],
