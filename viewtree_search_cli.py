@@ -27,17 +27,6 @@ class viewtree_search_cli:
     or URLs and then search it with selectors
     '''
 
-    def _output_welcome_message(self):
-        '''
-        Output a welcome message for the viewtree CLI
-        '''
-        print("ViewTree Search")
-        print("ViewTree Search CLI is a CLI which allows a user to "
-              "load ViewTree JSON scripts from files or from URLs and"
-              " then perform selector searches on it.")
-        print("Type '\\help' for instructions for use.")
-        return True
-
     def __init__(self):
         '''
         Set up important attributes for the viewtree
@@ -57,6 +46,17 @@ class viewtree_search_cli:
         self._easter_eggs = ('\\easter egg', '\\uuddlrlrba')
         logging.basicConfig(stream=sys.stderr, level=logging.INFO)
         self._output_welcome_message()
+
+    def _output_welcome_message(self):
+        '''
+        Output a welcome message for the viewtree CLI
+        '''
+        print("ViewTree Search")
+        print("ViewTree Search CLI is a CLI which allows a user to "
+              "load ViewTree JSON scripts from files or from URLs and"
+              " then perform selector searches on it.")
+        print("Type '\\help' for instructions for use.")
+        return True
 
     def _set_logging(self):
         '''
