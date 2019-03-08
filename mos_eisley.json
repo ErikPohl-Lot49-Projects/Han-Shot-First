@@ -43,6 +43,13 @@
         "help",
         "exit"
       ]
+    },
+    {
+      "CLAss": "SOURCE",
+      "classNAmes": [
+        "heLp",
+        "eXit"
+      ]
     }
   ]
 }
