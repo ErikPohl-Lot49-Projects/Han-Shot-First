@@ -35,8 +35,8 @@ class viewtree_search_cli:
 
         self.json_source = None
         self.debug_mode = False  # log message to stdout
-        self.allow_double_matching = False  # > 1 match report for class
-        self.case_sensitive_search = True  # tag key and value case sensitivity
+        self._allow_double_matching = False  # > 1 match report for class
+        self._case_sensitive_search = True  # tag key and value case sensitivity
         self._check_full_search_match = lambda hits: all(
             [hit_or_miss for hit_or_miss in hits]
         )
@@ -109,7 +109,7 @@ class viewtree_search_cli:
         return command_list
 
     def _apply_case_sensitivity(self, value):
-        if not self.case_sensitive_search:
+        if not self._case_sensitive_search:
             return value.lower()
         return value
 
@@ -170,7 +170,7 @@ class viewtree_search_cli:
                     check it for matches with
                     the selectors
                     '''
-                    if (self.allow_double_matching) or (not match) and \
+                    if (self._allow_double_matching) or (not match) and \
                             (current_json_key in self._selector_keys):
                         current_json_key = self._apply_case_sensitivity(
                             current_json_key
