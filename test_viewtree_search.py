@@ -5,7 +5,6 @@ and to prove functionality works
 '''
 
 from unittest import TestCase
-from json import load
 from contextlib import redirect_stdout
 import io
 import viewtree_search_cli
@@ -133,6 +132,45 @@ class TestCases(TestCase):
                     test_case['case_count'],
                     msg='Testing case [' + test_case['case_name'] + ']'
                 )
+
+        def test_viewtree_searches_double_matching(self):
+            '''
+            For a list of test cases,
+            load a test file, run a selector search against it using
+            the viewtree search method, and compare
+            the result against expected results
+            '''
+            self.modal_nodes_test_file = 'the_modal_nodes.json'
+            self.mos_eisley_test_file = 'mos_eisley.json'
+            test_cases = [
+                {
+                    'case_name': 'before combinator, compound',
+                    'case_file':
+                        self.mos_eisley_test_file,
+                    'case_search_commands': ['Ponda_Baba', '.Doctor_Evazan'],
+                    'case_count': 3  # this is a case I'd like to discuss
+                }
+            ]
+            last_loaded_file = None
+            output_redirect = io.StringIO()
+            with redirect_stdout(output_redirect):
+                viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
+                viewtree_search_object.allow_double_matching = True
+                for test_case in test_cases:
+                    if test_case['case_file'] != last_loaded_file:
+                        viewtree_search_object.load_json_from_file(
+                            test_case['case_file']
+                        )
+                        last_loaded_file = test_case['case_file']
+                    self.assertEqual(
+                        len(
+                            viewtree_search_object.viewtree_search(
+                                test_case['case_search_commands']
+                            )
+                        ),
+                        test_case['case_count'],
+                        msg='Testing case [' + test_case['case_name'] + ']'
+                    )
 
     def test_viewtree_searches_case_insensitive(self): 
             '''
