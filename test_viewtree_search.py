@@ -155,7 +155,7 @@ class TestCases(TestCase):
             output_redirect = io.StringIO()
             with redirect_stdout(output_redirect):
                 viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
-                viewtree_search_object.allow_double_matching = True
+                viewtree_search_object._allow_double_matching = True
                 for test_case in test_cases:
                     if test_case['case_file'] != last_loaded_file:
                         viewtree_search_object.load_json_from_file(
@@ -208,7 +208,7 @@ class TestCases(TestCase):
             output_redirect = io.StringIO()
             with redirect_stdout(output_redirect):
                 viewtree_search_object = viewtree_search_cli.viewtree_search_cli()
-                viewtree_search_object.case_sensitive_search = False
+                viewtree_search_object._case_sensitive_search = False
                 for test_case in test_cases:
                     if test_case['case_file'] != last_loaded_file:
                         viewtree_search_object.load_json_from_file(
