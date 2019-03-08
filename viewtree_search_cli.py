@@ -78,14 +78,16 @@ class viewtree_search_cli:
         into a command useful for the search function
         '''
         self._set_logging()
-        logging.info('string command: ' + str(string_command))
+        logging.info('string command argument: ' + str(string_command))
         command_list = [string_command]
         ''' split by selector prefixes'''
         split_list = re.split(
             r"([" + ''.join(self._selector_prefixes) + "])",
             string_command
         )
+        logging.info('Initial split of the list:')
         logging.info(split_list)
+        logging.info('Is it a compound selector?')
         logging.info(
             set(
                 string_command[1:]).intersection(
@@ -104,7 +106,7 @@ class viewtree_search_cli:
             # handles the class as first list item
             if string_command[0] not in self._selector_prefixes:
                 command_list.insert(0, split_list[0])
-        logging.info('command list' + str(command_list))
+        logging.info('resulting command list:' + str(command_list))
         return command_list
 
     def _apply_case_sensitivity(self, value):
@@ -130,7 +132,7 @@ class viewtree_search_cli:
         local_selectors = selectors[:]
         local_search_hits = search_hits[:]
         results = []
-        logging.info('called:' +
+        logging.info('called [type and data of tree]:' +
                      str(type(json_view_tree)) +
                      str(json_view_tree)
                      )
@@ -141,7 +143,7 @@ class viewtree_search_cli:
         try:
             match = False
             for current_json_key in json_view_tree.keys():
-                logging.info('found a dictionary.  searching it.')
+                logging.info('found a dictionary.  searching its key value pairs.')
                 '''
                 let's see if the value of the json_key
                 warrants further recursion
@@ -152,7 +154,7 @@ class viewtree_search_cli:
                 which is not classNames
                 '''
                 if (current_json_key in self._recursable_tags):
-                    log_message = 'recursing into ' + str(type(
+                    log_message = 'recursing into type/value :' + str(type(
                         current_json_value)) + str(current_json_value)
                     logging.info(log_message)
                     results.extend(
