@@ -46,7 +46,6 @@ class viewtree_search_cli:
 
         self.json_source = None
         self.debug_mode = False  # log message to stdout
-        self.halt_on_match = False  # on selector match stop recursing
         self.allow_double_matching = False  # > 1 match report for class
         self.case_sensitive_search = True  # tag key and value case sensitivity
         self._check_full_search_match = lambda hits: all(
@@ -218,8 +217,6 @@ class viewtree_search_cli:
                                         local_search_hits):
                                     match = True
                                     results.append(json_view_tree)
-                                    if self.halt_on_match:
-                                        return results
         except:
             try:
                 '''
